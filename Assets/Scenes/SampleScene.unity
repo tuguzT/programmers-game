@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCamera: {fileID: 963194227}
-  cameraSpeed: 50
+  cameraSpeed: 100
   minimumAngle: 30
   maximumAngle: 60
   distance: 10
