@@ -6,16 +6,14 @@ public class FieldGenerator : MonoBehaviour
     [SerializeField]
     public GameObject prefab;
 
-    [SerializeField]
-    [Range(6, 9)]
-    private int size = 6;
-
     private readonly List<GameObject> _prefabs = new List<GameObject>();
     private Vector3 _offset;
 
     private void Start()
     {
+        var size = (int) GameManager.Instance.GameMode.FieldSize();
         _offset = new Vector3((1 - size) / 2f, 0f, (1 - size) / 2f);
+
         for (var i = 0; i < size; i++)
         {
             for (var j = 0; j < size; j++)

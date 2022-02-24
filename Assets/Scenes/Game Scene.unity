@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 609383679}
   - component: {fileID: 609383680}
+  - component: {fileID: 609383681}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Game Manager
@@ -171,6 +172,19 @@ MonoBehaviour:
   minimumAngle: 30
   maximumAngle: 60
   distance: 10
+--- !u!114 &609383681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609383678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 098d254036a5af34999daefcae773273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameMode>k__BackingField: 0
 --- !u!1 &697990512
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +229,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1028461378716034022, guid: b54fda58b9de93347a3e59510521ab9e, type: 3}
-  size: 6
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
