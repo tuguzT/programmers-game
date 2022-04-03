@@ -2,7 +2,7 @@
 
 namespace Model
 {
-    public static class GameModeHelpers
+    public static class GameModeHelper
     {
         private static readonly Dictionary<GameMode, uint> FieldSizes = new Dictionary<GameMode, uint>
         {

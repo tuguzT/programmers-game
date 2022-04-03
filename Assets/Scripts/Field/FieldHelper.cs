@@ -3,7 +3,7 @@ using Model;
 
 namespace Field
 {
-    public static class FieldHelpers
+    public static class FieldHelper
     {
         public static IField Field(this GameMode gameMode) => gameMode switch
         {

@@ -15,7 +15,11 @@ namespace Field
             {
                 for (var j = 0; j < size; j++)
                 {
-                    chunks[i, j] = new Chunk(color, position: new Vector3Int(i, 0, j));
+                    chunks[i, j] = new Chunk
+                    {
+                        Color = color,
+                        Position = new Vector3Int(i, 0, j),
+                    };
                 }
             }
             return chunks;

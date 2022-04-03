@@ -6,11 +6,5 @@ namespace Model
     {
         public Vector3Int Position;
         public Color Color;
-
-        public Chunk(Color color, Vector3Int position)
-        {
-            Color = color;
-            Position = position;
-        }
     }
 }
