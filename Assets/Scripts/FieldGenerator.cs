@@ -8,6 +8,7 @@ public class FieldGenerator : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
 
+    // ReSharper disable once CollectionNeverQueried.Local
     private readonly List<GameObject> _prefabs = new List<GameObject>();
     private Vector3 _offset;
 
@@ -26,6 +27,5 @@ public class FieldGenerator : MonoBehaviour
             instantiated.GetComponent<Renderer>().material.color = chunk.Color;
             _prefabs.Add(instantiated);
         }
-        print(_prefabs);
     }
 }

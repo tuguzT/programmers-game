@@ -36,10 +36,10 @@ public class CameraController : MonoBehaviour
         currentCamera.transform.LookAt(_center);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         var mouseX = Input.GetAxis("Mouse X");
-        var mouseY = Input.GetAxis("Mouse Y");
+        var mouseY = -Input.GetAxis("Mouse Y");
 
         _rotationY += mouseX * cameraSpeed * Time.deltaTime;
         _rotationX += mouseY * cameraSpeed * Time.deltaTime;
