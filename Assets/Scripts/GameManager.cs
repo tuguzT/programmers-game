@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null) throw new Exception("It is an error to instantiate new GameManager instance");
         Instance = this;
+        DontDestroyOnLoad(Instance.gameObject);
     }
 
     #endregion
