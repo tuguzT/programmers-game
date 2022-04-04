@@ -10,21 +10,32 @@ public class FieldGenerator : MonoBehaviour
 
     // ReSharper disable once CollectionNeverQueried.Local
     private readonly List<GameObject> _prefabs = new List<GameObject>();
-    private Vector3 _offset;
 
-    private void Start()
+    private void Awake()
     {
-        var gameMode = GameManager.Instance.GameMode;
-        var size = (int) gameMode.FieldSize();
-        _offset = new Vector3((1 - size) / 2f, 0f, (1 - size) / 2f);
+        var fieldSize = (int) GameManager.Instance.GameMode.FieldSize();
 
-        var field = gameMode.Field();
+        var prefabSize = prefab.GetComponentInChildren<Renderer>().bounds.size;
+        print(prefabSize);
+        var offset = new Vector3
+        {
+            x = (1f - fieldSize) * prefabSize.x / 2f,
+            y = 0f,
+            z = (1f - fieldSize) * prefabSize.z / 2f,
+        };
+
+        var field = GameManager.Instance.GameMode.Field();
         var chunks = field.Generate();
         foreach (var chunk in chunks)
         {
-            var position = chunk.Position + _offset;
+            var position = offset + new Vector3
+            {
+                x = chunk.Position.x * prefabSize.x,
+                y = chunk.Position.y * prefabSize.y,
+                z = chunk.Position.z * prefabSize.z,
+            };
             var instantiated = Instantiate(prefab, position, Quaternion.identity, transform);
-            instantiated.GetComponent<Renderer>().material.color = chunk.Color;
+            instantiated.GetComponentInChildren<Renderer>().material.color = chunk.Color;
             _prefabs.Add(instantiated);
         }
     }

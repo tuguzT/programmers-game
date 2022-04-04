@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce521870a7940bc448b4536324128bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1028461378716034022, guid: b54fda58b9de93347a3e59510521ab9e, type: 3}
+  prefab: {fileID: 4706034472329216832, guid: 6de841035bc5da14ebb47d51ddcc0307, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +257,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
