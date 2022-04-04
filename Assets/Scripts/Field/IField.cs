@@ -4,6 +4,6 @@ namespace Field
 {
     public interface IField
     {
-        Chunk[,] Generate();
+        ChunkData[,] Generate();
     }
 }

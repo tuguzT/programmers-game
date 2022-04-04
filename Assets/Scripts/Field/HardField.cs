@@ -5,20 +5,20 @@ namespace Field
 {
     internal sealed class HardField : IField
     {
-        public Chunk[,] Generate()
+        public ChunkData[,] Generate()
         {
             var size = GameMode.Hard.FieldSize();
             var color = new Color(247 / 255f, 64 / 255f, 103 / 255f);
 
-            var chunks = new Chunk[size, size];
+            var chunks = new ChunkData[size, size];
             for (var i = 0; i < size; i++)
             {
                 for (var j = 0; j < size; j++)
                 {
-                    chunks[i, j] = new Chunk
+                    chunks[i, j] = new ChunkData
                     {
-                        Color = color,
-                        Position = new Vector3Int(i, 0, j),
+                        color = color,
+                        position = new Vector3Int(i, 0, j),
                     };
                 }
             }

@@ -9,7 +9,7 @@ public class FieldGenerator : MonoBehaviour
     private GameObject prefab;
 
     // ReSharper disable once CollectionNeverQueried.Local
-    private readonly List<GameObject> _prefabs = new List<GameObject>();
+    private readonly List<Chunk> _chunks = new List<Chunk>();
 
     private void Awake()
     {
@@ -26,17 +26,19 @@ public class FieldGenerator : MonoBehaviour
 
         var field = GameManager.Instance.GameMode.Field();
         var chunks = field.Generate();
-        foreach (var chunk in chunks)
+        foreach (var data in chunks)
         {
             var position = offset + new Vector3
             {
-                x = chunk.Position.x * prefabSize.x,
-                y = chunk.Position.y * prefabSize.y,
-                z = chunk.Position.z * prefabSize.z,
+                x = data.position.x * prefabSize.x,
+                y = data.position.y * prefabSize.y,
+                z = data.position.z * prefabSize.z,
             };
             var instantiated = Instantiate(prefab, position, Quaternion.identity, transform);
-            instantiated.GetComponentInChildren<Renderer>().material.color = chunk.Color;
-            _prefabs.Add(instantiated);
+            instantiated.GetComponent<Renderer>().material.color = data.color;
+            var chunk = instantiated.AddComponent<Chunk>();
+            chunk.Data = data;
+            _chunks.Add(chunk);
         }
     }
 }
