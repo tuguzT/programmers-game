@@ -27,14 +27,17 @@ public class FieldGenerator : MonoBehaviour
             for (var j = 0; j < generatedData.GetLength(1); j++)
             {
                 var data = generatedData[i, j];
+
+                var terrain = _fieldDistribution.GetRandomTerrain();
                 var position = offset + new Vector3
                 {
                     x = data.position.x * ChunkData.Width,
                     y = data.position.y * ChunkData.Height,
                     z = data.position.z * ChunkData.Width,
                 };
-                var terrain = _fieldDistribution.GetRandomTerrain();
-                var instantiated = Instantiate(terrain, position, Quaternion.identity, transform);
+                var rotation = DirectionHelper.GetRandom().ToQuaternion();
+
+                var instantiated = Instantiate(terrain, position, rotation, transform);
                 instantiated.GetComponent<Renderer>().material.color = data.color;
                 var chunk = instantiated.AddComponent<Chunk>();
                 chunk.Data = data;

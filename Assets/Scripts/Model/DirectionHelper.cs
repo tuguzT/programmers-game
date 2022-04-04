@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Model
@@ -9,6 +10,19 @@ namespace Model
         {
             var values = Enum.GetValues(typeof(Direction));
             return (Direction)values.GetValue(Random.Range(0, values.Length));
+        }
+
+        public static Quaternion ToQuaternion(this Direction direction)
+        {
+            var y = direction switch
+            {
+                Direction.Forward => 0f,
+                Direction.Back => 180f,
+                Direction.Left => 270f,
+                Direction.Right => 90f,
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null),
+            };
+            return Quaternion.Euler(0, y, 0);
         }
 
         public static Direction TurnAround(this Direction direction) => direction switch
