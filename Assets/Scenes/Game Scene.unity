@@ -195,6 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 697990513}
   - component: {fileID: 697990514}
+  - component: {fileID: 697990515}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -228,7 +229,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce521870a7940bc448b4536324128bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4706034472329216832, guid: 6de841035bc5da14ebb47d51ddcc0307, type: 3}
+--- !u!114 &697990515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697990512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ae04dcc0ad0874cb76128ce227545a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commonTerrains:
+  - {fileID: 4706034472329216832, guid: 6de841035bc5da14ebb47d51ddcc0307, type: 3}
+  - {fileID: 6126389663875042425, guid: 9fbb5274da065a44faba52fbf6ea5eee, type: 3}
+  - {fileID: 2789146997775830755, guid: 2603b63d8d8a709428e802d1cfbbbc53, type: 3}
+  - {fileID: 2470319130126734217, guid: eb12e5460d7e9454b880a848feccb9af, type: 3}
+  - {fileID: 4591208251739331599, guid: 0c3b28f6e8ae8534db50a2b5f23985ca, type: 3}
+  commonChance: 100
+  rareTerrains:
+  - {fileID: 2800734323331324571, guid: f0a3534f5c9e01e489d05ae03b8b3809, type: 3}
+  - {fileID: 1677688942482641579, guid: e69e0066370eab34f99bea6342cd4443, type: 3}
+  - {fileID: 2007557691169351602, guid: 8ba18183fca1b6943bd046a252cefa3f, type: 3}
+  - {fileID: 1283688063237246443, guid: 8dd83fdb0c9d9cd4baf7026752bef59e, type: 3}
+  - {fileID: 7783393936100858618, guid: f73bb52e88e167447b2d97286c79e5c1, type: 3}
+  rareChance: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

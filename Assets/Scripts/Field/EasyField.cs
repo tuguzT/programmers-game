@@ -7,7 +7,7 @@ namespace Field
     {
         public ChunkData[,] Generate()
         {
-            var size = GameMode.Easy.FieldSize();
+            var size = GameMode.Easy.FieldWidth();
             var color = new Color(253 / 255f, 208 / 255f, 2 / 255f);
 
             var chunks = new ChunkData[size, size];

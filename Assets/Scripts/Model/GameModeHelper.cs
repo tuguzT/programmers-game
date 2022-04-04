@@ -10,6 +10,6 @@ namespace Model
             { GameMode.Hard, 9 },
         };
 
-        public static uint FieldSize(this GameMode gameMode) => FieldSizes[gameMode];
+        public static uint FieldWidth(this GameMode gameMode) => FieldSizes[gameMode];
     }
 }

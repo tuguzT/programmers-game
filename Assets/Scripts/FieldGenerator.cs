@@ -1,44 +1,45 @@
-using System.Collections.Generic;
 using Field;
 using Model;
 using UnityEngine;
 
+[RequireComponent(typeof(FieldDistribution))]
 public class FieldGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject prefab;
-
-    // ReSharper disable once CollectionNeverQueried.Local
-    private readonly List<Chunk> _chunks = new List<Chunk>();
+    private Chunk[,] _chunks;
+    private FieldDistribution _fieldDistribution;
 
     private void Awake()
     {
-        var fieldSize = (int) GameManager.Instance.GameMode.FieldSize();
+        _fieldDistribution = GetComponent<FieldDistribution>();
 
-        var prefabSize = prefab.GetComponentInChildren<Renderer>().bounds.size;
-        print(prefabSize);
+        var fieldWidth = (int) GameManager.Instance.GameMode.FieldWidth();
         var offset = new Vector3
         {
-            x = (1f - fieldSize) * prefabSize.x / 2f,
-            y = 0f,
-            z = (1f - fieldSize) * prefabSize.z / 2f,
+            x = (1f - fieldWidth) * ChunkData.Width / 2f,
+            z = (1f - fieldWidth) * ChunkData.Width / 2f,
         };
 
+        _chunks = new Chunk[fieldWidth, fieldWidth];
         var field = GameManager.Instance.GameMode.Field();
-        var chunks = field.Generate();
-        foreach (var data in chunks)
+        var generatedData = field.Generate();
+        for (var i = 0; i < generatedData.GetLength(0); i++)
         {
-            var position = offset + new Vector3
+            for (var j = 0; j < generatedData.GetLength(1); j++)
             {
-                x = data.position.x * prefabSize.x,
-                y = data.position.y * prefabSize.y,
-                z = data.position.z * prefabSize.z,
-            };
-            var instantiated = Instantiate(prefab, position, Quaternion.identity, transform);
-            instantiated.GetComponent<Renderer>().material.color = data.color;
-            var chunk = instantiated.AddComponent<Chunk>();
-            chunk.Data = data;
-            _chunks.Add(chunk);
+                var data = generatedData[i, j];
+                var position = offset + new Vector3
+                {
+                    x = data.position.x * ChunkData.Width,
+                    y = data.position.y * ChunkData.Height,
+                    z = data.position.z * ChunkData.Width,
+                };
+                var terrain = _fieldDistribution.GetRandomTerrain();
+                var instantiated = Instantiate(terrain, position, Quaternion.identity, transform);
+                instantiated.GetComponent<Renderer>().material.color = data.color;
+                var chunk = instantiated.AddComponent<Chunk>();
+                chunk.Data = data;
+                _chunks[i, j] = chunk;
+            }
         }
     }
 }
