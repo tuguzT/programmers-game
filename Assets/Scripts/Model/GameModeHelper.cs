@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Model
 {
     public static class GameModeHelper
     {
-        private static readonly Dictionary<GameMode, uint> FieldSizes = new Dictionary<GameMode, uint>
+        public static uint FieldWidth(this GameMode gameMode) => gameMode switch
         {
-            { GameMode.Easy, 6 },
-            { GameMode.Hard, 9 },
+            GameMode.Easy => 6,
+            GameMode.Hard => 9,
+            _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null),
         };
-
-        public static uint FieldWidth(this GameMode gameMode) => FieldSizes[gameMode];
     }
 }
