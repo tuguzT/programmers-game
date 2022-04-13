@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3464bc8ac6f6b074c87a572eb3ef8641
+guid: cd02da3686b36bd44b1406051ca527de
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LayerBonus1
+      name: BlueBase
     second: {fileID: 2100000, guid: c1cc6d4b742538646ac95a1ade66881c, type: 2}
   materials:
     materialImportMode: 2

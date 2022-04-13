@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3464bc8ac6f6b074c87a572eb3ef8641
+guid: 4855de3351f83e244883f2a5054a76e9
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LayerBonus1
+      name: RedBase
     second: {fileID: 2100000, guid: c1cc6d4b742538646ac95a1ade66881c, type: 2}
   materials:
     materialImportMode: 2

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3464bc8ac6f6b074c87a572eb3ef8641
+guid: c2df9f04dd07a1d419abf2120788d860
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LayerBonus1
+      name: YellowCar
     second: {fileID: 2100000, guid: c1cc6d4b742538646ac95a1ade66881c, type: 2}
   materials:
     materialImportMode: 2
