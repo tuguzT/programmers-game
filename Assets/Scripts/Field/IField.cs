@@ -1,6 +1,4 @@
-﻿using Model;
-
-namespace Field
+﻿namespace Field
 {
     public interface IField
     {

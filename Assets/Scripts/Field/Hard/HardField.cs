@@ -2,7 +2,7 @@
 using Model;
 using UnityEngine;
 
-namespace Field
+namespace Field.Hard
 {
     internal sealed class HardField : IField
     {
@@ -19,17 +19,14 @@ namespace Field
 
         private ChunkData[,] Init()
         {
-            var color = new Color(247 / 255f, 64 / 255f, 103 / 255f);
             var chunks = new ChunkData[Width, Width];
             for (var i = 0; i < Width; i++)
             {
                 for (var j = 0; j < Width; j++)
                 {
-                    chunks[i, j] = new ChunkData
-                    {
-                        color = color,
-                        position = new Vector3Int(i, 0, j),
-                    };
+                    var position = new Vector3Int(i, 0, j);
+                    var direction = DirectionHelper.GetRandom();
+                    chunks[i, j] = new ChunkData(position, HardColor.Red, direction);
                 }
             }
             return chunks;
@@ -37,7 +34,6 @@ namespace Field
 
         private (int, int, int, int) Generate3X6X2(ChunkData[,] chunks)
         {
-            var color = new Color(230 / 255f, 96 / 255f, 201 / 255f);
             int x, y, length, width;
             do
             {
@@ -51,8 +47,11 @@ namespace Field
             {
                 for (var j = y; j < y + width; j++)
                 {
-                    chunks[i, j].position.y += 2;
-                    chunks[i, j].color = color;
+                    var chunk = chunks[i, j];
+                    var direction = chunk.Direction;
+                    var position = chunk.Position;
+                    position.y += 2;
+                    chunks[i, j] = new ChunkData(position, HardColor.Pink, direction);
                 }
             }
             return (x, y, length, width);
@@ -107,7 +106,6 @@ namespace Field
                 return (x, y);
             }
 
-            var color = new Color(246 / 255f, 151 / 255f, 85 / 255f);
             var (prevX, prevY, prevLength, prevWidth) = blockData;
 
             var length = Random.Range(0, 2) == 0 ? 6 : 3;
@@ -127,16 +125,17 @@ namespace Field
             {
                 for (var j = y; j < y + width; j++)
                 {
-                    chunks[i, j].position.y += 1;
-                    chunks[i, j].color = color;
+                    var chunk = chunks[i, j];
+                    var direction = chunk.Direction;
+                    var position = chunk.Position;
+                    position.y += 1;
+                    chunks[i, j] = new ChunkData(position, HardColor.Orange, direction);
                 }
             }
         }
 
         private void Generate3X3(ChunkData[,] chunks)
         {
-            var color = new Color(240 / 255f, 203 / 255f, 90 / 255f);
-
             int x, y;
             bool found;
             do
@@ -148,7 +147,7 @@ namespace Field
                 {
                     for (var j = y; j < y + 3; j++)
                     {
-                        if (chunks[i, j].position.y != 0)
+                        if (chunks[i, j].Position.y != 0)
                         {
                             found = false;
                         }
@@ -160,8 +159,11 @@ namespace Field
             {
                 for (var j = y; j < y + 3; j++)
                 { 
-                    chunks[i, j].position.y += 1;
-                    chunks[i, j].color = color;
+                    var chunk = chunks[i, j];
+                    var direction = chunk.Direction;
+                    var position = chunk.Position;
+                    position.y += 1;
+                    chunks[i, j] = new ChunkData(position, HardColor.Yellow, direction);
                 }
             }
         }

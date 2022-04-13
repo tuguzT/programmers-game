@@ -1,4 +1,6 @@
 ﻿using System;
+using Field.Easy;
+using Field.Hard;
 using Model;
 
 namespace Field
