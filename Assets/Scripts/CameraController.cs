@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     [Range(0, 20)]
-    private float zoomSpeed = 5;
+    private float zoomSpeed = 10;
 
     [SerializeField]
     [Range(0, 40)]
@@ -50,17 +50,21 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        var mouseX = Input.GetAxis("Mouse X");
-        var mouseY = -Input.GetAxis("Mouse Y");
-
-        _rotationY += mouseX * cameraSpeed * Time.deltaTime;
-        _rotationX += mouseY * cameraSpeed * Time.deltaTime;
-        _rotationX = Mathf.Clamp(_rotationX, minimumAngle, maximumAngle);
-
         var cameraTransform = currentCamera.transform;
-        cameraTransform.localEulerAngles = new Vector3(_rotationX, _rotationY);
 
-        _zoomDistance -= Input.mouseScrollDelta.y * 0.25f;
+        if (Input.GetMouseButton(0))
+        {
+            var mouseX = Input.GetAxis("Mouse X");
+            var mouseY = -Input.GetAxis("Mouse Y");
+
+            _rotationY += mouseX * cameraSpeed * Time.deltaTime;
+            _rotationX += mouseY * cameraSpeed * Time.deltaTime;
+            _rotationX = Mathf.Clamp(_rotationX, minimumAngle, maximumAngle);
+
+            cameraTransform.localEulerAngles = new Vector3(_rotationX, _rotationY);
+        }
+
+        _zoomDistance -= Input.mouseScrollDelta.y * 0.5f;
         _zoomDistance = Mathf.Clamp(_zoomDistance, _minDistance, _maxDistance);
         _distance = Mathf.MoveTowards(_distance, _zoomDistance, zoomSpeed * Time.deltaTime);
         cameraTransform.position = _center - cameraTransform.forward * _distance;

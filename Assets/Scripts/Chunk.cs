@@ -3,6 +3,8 @@ using Field;
 using Model;
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Outline))]
 public class Chunk : MonoBehaviour
 {
     [field:SerializeField]
@@ -47,9 +49,23 @@ public class Chunk : MonoBehaviour
     }
 
     private Renderer _renderer;
+    private Outline _outline;
 
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
+        _outline = GetComponent<Outline>();
+
+        _outline.enabled = false;
+        _outline.OutlineColor = Color.green;
+        _outline.OutlineMode = Outline.Mode.OutlineAll;
+        _outline.OutlineWidth = 5f;
     }
+
+    private void OnMouseEnter()
+    {
+        if (!Input.GetMouseButton(0)) _outline.enabled = true;
+    }
+
+    private void OnMouseExit() => _outline.enabled = false;
 }
