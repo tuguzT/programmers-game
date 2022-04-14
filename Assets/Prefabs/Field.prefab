@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,84 +71,87 @@ MonoBehaviour:
   - {fileID: 1283688063237246443, guid: 8dd83fdb0c9d9cd4baf7026752bef59e, type: 3}
   - {fileID: 7783393936100858618, guid: f73bb52e88e167447b2d97286c79e5c1, type: 3}
   rareChance: 2
+  <Lift>k__BackingField: {fileID: 2678730854384510587, guid: 77fb72c0120aa394b8435487c4777cfd,
+    type: 3}
   _easy:
-    id: 0
+    rid: 0
   _hard:
-    id: 1
+    rid: 1
   references:
-    version: 1
-    00000000:
+    version: 2
+    RefIds:
+    - rid: 0
       type: {class: FieldDistribution/DifficultyDistribution, ns: , asm: Assembly-CSharp}
       data:
         Blue:
-          id: 2
+          rid: 2
         Green:
-          id: 3
+          rid: 3
         Red:
-          id: 4
+          rid: 4
         Yellow:
-          id: 5
-    00000001:
+          rid: 5
+    - rid: 1
       type: {class: FieldDistribution/DifficultyDistribution, ns: , asm: Assembly-CSharp}
       data:
         Blue:
-          id: 6
+          rid: 6
         Green:
-          id: 7
+          rid: 7
         Red:
-          id: 8
+          rid: 8
         Yellow:
-          id: 9
-    00000002:
+          rid: 9
+    - rid: 2
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 3572641761307909439, guid: a6cd4c6668331b34fafa8248bcdb0a0f,
           type: 3}
         Car: {fileID: 2984109130109581126, guid: cc31b12faa2caf148bb407c97eed121a,
           type: 3}
-    00000003:
+    - rid: 3
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 4115341279731299309, guid: 9f5b07345494080438daf442932f9333,
           type: 3}
         Car: {fileID: 1271248075792695950, guid: caffaf2fab9997f4299d30e66920eb09,
           type: 3}
-    00000004:
+    - rid: 4
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 3275720007308843282, guid: 921b0542843a99246b601a2e58ff883d,
           type: 3}
         Car: {fileID: 6522097794090012818, guid: 8d70d77da8e8b6f4b93f47f14ee5b3aa,
           type: 3}
-    00000005:
+    - rid: 5
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 8364239986686417077, guid: 4df2e005df7639c4fb0b3fb7f6a35026,
           type: 3}
         Car: {fileID: 1715893191388548603, guid: 8090ad54207cc864c90ecb2b0a90500e,
           type: 3}
-    00000006:
+    - rid: 6
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 5035565733922099631, guid: 84b873a6d777ab34786e3c1df9a9fb3b,
           type: 3}
         Car: {fileID: 8950924120989539765, guid: 37305023b904b9b4a9fd2440534bf0f4,
           type: 3}
-    00000007:
+    - rid: 7
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 512390143809877255, guid: 13f3fb56313d1e347b301180d9adca47,
           type: 3}
         Car: {fileID: 584422503430011158, guid: c0bb95c0da8fb1545ad1197a1a7d5072,
           type: 3}
-    00000008:
+    - rid: 8
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 3079290947142238473, guid: da3ccdb747c486c4193bd8e40387a8cc,
           type: 3}
         Car: {fileID: 1557804230437456926, guid: 6f140734bd72f0142ad02922338cea37,
           type: 3}
-    00000009:
+    - rid: 9
       type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
       data:
         Base: {fileID: 4396933862559741816, guid: 8704a5d17338704418c437df3f031f3c,

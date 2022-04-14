@@ -7,9 +7,10 @@ using Color = Car.Color;
 using Random = UnityEngine.Random;
 
 [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
 public class FieldDistribution : MonoBehaviour
 {
-    [SerializeField] private GameObject[] commonTiles;
+    [Header("Tiles")] [SerializeField] private GameObject[] commonTiles;
 
     [SerializeField] [Range(0, 100)] private int commonChance = 100;
 
@@ -17,20 +18,24 @@ public class FieldDistribution : MonoBehaviour
 
     [SerializeField] [Range(0, 100)] private int rareChance = 2;
 
-    [Header("Difficulties")] [SerializeReference]
-    private DifficultyDistribution _easy = new DifficultyDistribution();
+    [field: Header("Lifts")]
+    [field: SerializeField]
+    public GameObject Lift { get; private set; }
 
-    [SerializeReference] private DifficultyDistribution _hard = new DifficultyDistribution();
+    [Header("Difficulties")] [SerializeReference]
+    private DifficultyDistribution _easy = new();
+
+    [SerializeReference] private DifficultyDistribution _hard = new();
 
     private class DifficultyDistribution
     {
-        [SerializeReference] public TeamDistribution Blue = new TeamDistribution();
+        [SerializeReference] public TeamDistribution Blue = new();
 
-        [SerializeReference] public TeamDistribution Green = new TeamDistribution();
+        [SerializeReference] public TeamDistribution Green = new();
 
-        [SerializeReference] public TeamDistribution Red = new TeamDistribution();
+        [SerializeReference] public TeamDistribution Red = new();
 
-        [SerializeReference] public TeamDistribution Yellow = new TeamDistribution();
+        [SerializeReference] public TeamDistribution Yellow = new();
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]

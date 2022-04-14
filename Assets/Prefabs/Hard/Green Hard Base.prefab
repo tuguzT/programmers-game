@@ -62,10 +62,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a23c06d9945dbdf4dafa90047736315b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a23c06d9945dbdf4dafa90047736315b,
         type: 3}
       propertyPath: m_Name
-      value: Model Green Hard Base
+      value: Green Hard Base
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23c06d9945dbdf4dafa90047736315b, type: 3}

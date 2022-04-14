@@ -62,10 +62,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3613d391ab12a55418430239959fdaed,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3613d391ab12a55418430239959fdaed,
         type: 3}
       propertyPath: m_Name
-      value: Terrain 1
+      value: Tile 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3613d391ab12a55418430239959fdaed, type: 3}

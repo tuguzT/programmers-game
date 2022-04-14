@@ -20,12 +20,13 @@ public class FieldGenerator : MonoBehaviour
         for (var j = 0; j < chunks.GetLength(1); j++)
         {
             var chunk = chunks[i, j];
-            var tile = chunk switch
+            var original = chunk switch
             {
                 Base @base => _fieldDistribution.GetBase(@base.CarColor),
+                Lift => _fieldDistribution.Lift,
                 _ => _fieldDistribution.GetRandomTile()
             };
-            var instantiated = Instantiate(tile, Vector3.zero, Quaternion.identity, transform);
+            var instantiated = Instantiate(original, Vector3.zero, Quaternion.identity, transform);
 
             var chunkComponent = instantiated.AddComponent<Chunk>();
             chunkComponent.Data = chunk;

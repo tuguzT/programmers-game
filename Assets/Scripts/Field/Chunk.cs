@@ -8,9 +8,9 @@ namespace Field
         public const float Width = 1.5f;
         public const float Height = 0.6f;
 
-        public readonly Vector3Int Position;
-        public readonly IColor Color;
-        public readonly Direction Direction;
+        public Vector3Int Position { get; }
+        public IColor Color { get; }
+        public Direction Direction { get; }
 
         public Chunk(Vector3Int position, IColor color, Direction direction)
         {
