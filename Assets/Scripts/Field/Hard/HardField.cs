@@ -1,6 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Model;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Field.Hard
 {
@@ -8,30 +11,31 @@ namespace Field.Hard
     {
         public uint Width => GameMode.Hard.FieldWidth();
 
-        public ChunkData[,] Generate()
+        public Chunk[,] Generate()
         {
             var chunks = Init();
             var blockData = Generate3X6X2(chunks);
             Generate3X6X1(chunks, blockData);
             Generate3X3(chunks);
+            GenerateBases(chunks);
             return chunks;
         }
 
-        private ChunkData[,] Init()
+        private Chunk[,] Init()
         {
-            var chunks = new ChunkData[Width, Width];
+            var chunks = new Chunk[Width, Width];
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Width; j++)
             {
                 var position = new Vector3Int(i, 0, j);
                 var direction = DirectionHelper.GetRandom();
-                chunks[i, j] = new ChunkData(position, HardColor.Red, direction);
+                chunks[i, j] = new Chunk(position, HardColor.Red, direction);
             }
 
             return chunks;
         }
 
-        private (int, int, int, int) Generate3X6X2(ChunkData[,] chunks)
+        private (int, int, int, int) Generate3X6X2(Chunk[,] chunks)
         {
             int x, y, length, width;
             do
@@ -49,14 +53,14 @@ namespace Field.Hard
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 2;
-                chunks[i, j] = new ChunkData(position, HardColor.Pink, direction);
+                chunks[i, j] = new Chunk(position, HardColor.Pink, direction);
             }
 
             return (x, y, length, width);
         }
 
         [SuppressMessage("ReSharper", "VariableHidesOuterVariable")]
-        private void Generate3X6X1(ChunkData[,] chunks, (int, int, int, int) blockData)
+        private void Generate3X6X1(Chunk[,] chunks, (int, int, int, int) blockData)
         {
             (int, int) FirstCase(int length, int prevWidth, int prevX, int prevY)
             {
@@ -126,11 +130,11 @@ namespace Field.Hard
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 1;
-                chunks[i, j] = new ChunkData(position, HardColor.Orange, direction);
+                chunks[i, j] = new Chunk(position, HardColor.Orange, direction);
             }
         }
 
-        private void Generate3X3(ChunkData[,] chunks)
+        private void Generate3X3(Chunk[,] chunks)
         {
             int x, y;
             bool found;
@@ -152,8 +156,22 @@ namespace Field.Hard
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 1;
-                chunks[i, j] = new ChunkData(position, HardColor.Yellow, direction);
+                chunks[i, j] = new Chunk(position, HardColor.Yellow, direction);
             }
+        }
+
+        private void GenerateBases(Chunk[,] chunks)
+        {
+            const GameMode gameMode = GameMode.Hard;
+
+            var colors = Enum.GetValues(typeof(Car.Color))
+                .Cast<Car.Color>()
+                .OrderBy(_ => Random.Range(0f, 1f))
+                .ToList();
+            chunks[0, 0] = new Base(chunks[0, 0].Position, colors[0], gameMode);
+            chunks[0, Width - 1] = new Base(chunks[0, Width - 1].Position, colors[1], gameMode);
+            chunks[Width - 1, 0] = new Base(chunks[Width - 1, 0].Position, colors[2], gameMode);
+            chunks[Width - 1, Width - 1] = new Base(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
         }
     }
 }

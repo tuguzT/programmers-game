@@ -4,6 +4,6 @@
     {
         uint Width { get; }
 
-        ChunkData[,] Generate();
+        Chunk[,] Generate();
     }
 }

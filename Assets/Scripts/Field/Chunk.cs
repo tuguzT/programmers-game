@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Field
 {
-    public readonly struct ChunkData
+    public class Chunk
     {
         public const float Width = 1.5f;
         public const float Height = 0.6f;
@@ -12,7 +12,7 @@ namespace Field
         public readonly IColor Color;
         public readonly Direction Direction;
 
-        public ChunkData(Vector3Int position, IColor color, Direction direction)
+        public Chunk(Vector3Int position, IColor color, Direction direction)
         {
             Position = position;
             Color = color;

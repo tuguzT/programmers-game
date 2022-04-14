@@ -1,4 +1,3 @@
-using Field;
 using Model;
 using UnityEngine;
 
@@ -29,8 +28,8 @@ public class CameraController : MonoBehaviour
         _center = myTransform.position;
 
         var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
-        _minDistance = fieldWidth * ChunkData.Width;
-        _maxDistance = fieldWidth * 1.5f * ChunkData.Width;
+        _minDistance = fieldWidth * Field.Chunk.Width;
+        _maxDistance = _minDistance * 1.5f;
         _zoomDistance = _distance = (_minDistance + _maxDistance) / 2;
 
         currentCamera.transform.position = _center + myTransform.forward * _distance;

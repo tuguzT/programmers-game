@@ -11,19 +11,25 @@ public class FieldGenerator : MonoBehaviour
     {
         _fieldDistribution = GetComponent<FieldDistribution>();
 
-        var field = GameManager.Instance.GameMode.Field();
+        var gameMode = GameManager.Instance.GameMode;
+        var field = gameMode.Field();
         _chunks = new Chunk[field.Width, field.Width];
 
-        var generatedData = field.Generate();
-        for (var i = 0; i < generatedData.GetLength(0); i++)
-        for (var j = 0; j < generatedData.GetLength(1); j++)
+        var chunks = field.Generate();
+        for (var i = 0; i < chunks.GetLength(0); i++)
+        for (var j = 0; j < chunks.GetLength(1); j++)
         {
-            var tile = _fieldDistribution.GetRandomTile();
+            var chunk = chunks[i, j];
+            var tile = chunk switch
+            {
+                Base @base => _fieldDistribution.GetBase(@base.CarColor),
+                _ => _fieldDistribution.GetRandomTile()
+            };
             var instantiated = Instantiate(tile, Vector3.zero, Quaternion.identity, transform);
 
-            var chunk = instantiated.AddComponent<Chunk>();
-            chunk.Data = generatedData[i, j];
-            _chunks[i, j] = chunk;
+            var chunkComponent = instantiated.AddComponent<Chunk>();
+            chunkComponent.Data = chunk;
+            _chunks[i, j] = chunkComponent;
         }
     }
 }

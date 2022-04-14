@@ -1,5 +1,4 @@
 using Attributes;
-using Field;
 using Model;
 using UnityEngine;
 
@@ -19,9 +18,9 @@ public class Chunk : MonoBehaviour
     [field: ReadOnly]
     public Direction Direction { get; private set; }
 
-    private ChunkData _data;
+    private Field.Chunk _data;
 
-    public ChunkData Data
+    public Field.Chunk Data
     {
         get => _data;
         set
@@ -34,15 +33,15 @@ public class Chunk : MonoBehaviour
             var fieldWidth = (int)GameManager.Instance.GameMode.FieldWidth();
             var offset = new Vector3
             {
-                x = (1f - fieldWidth) * ChunkData.Width / 2f,
-                z = (1f - fieldWidth) * ChunkData.Width / 2f
+                x = (1f - fieldWidth) * Field.Chunk.Width / 2f,
+                z = (1f - fieldWidth) * Field.Chunk.Width / 2f
             };
 
             transform.position = offset + new Vector3
             {
-                x = Position.x * ChunkData.Width,
-                y = Position.y * ChunkData.Height,
-                z = Position.z * ChunkData.Width
+                x = Position.x * Field.Chunk.Width,
+                y = Position.y * Field.Chunk.Height,
+                z = Position.z * Field.Chunk.Width
             };
             transform.rotation = Direction.ToQuaternion();
             _renderer.material.color = Color;
