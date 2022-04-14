@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // ReSharper disable once UnusedAutoPropertyAccessor.Local
-    [field: SerializeField]
-    public GameMode GameMode { get; private set; }
+    [field: SerializeField] public GameMode GameMode { get; private set; }
 
     #region Singleton
 

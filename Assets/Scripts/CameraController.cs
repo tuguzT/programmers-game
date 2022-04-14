@@ -4,24 +4,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
-    private Camera currentCamera;
+    [SerializeField] private Camera currentCamera;
 
-    [SerializeField]
-    [Range(0, 200)]
-    private float cameraSpeed = 100;
+    [SerializeField] [Range(0, 200)] private float cameraSpeed = 100;
 
-    [SerializeField]
-    [Range(0, 20)]
-    private float zoomSpeed = 10;
+    [SerializeField] [Range(0, 20)] private float zoomSpeed = 10;
 
-    [SerializeField]
-    [Range(0, 40)]
-    private float minimumAngle = 30;
+    [SerializeField] [Range(0, 40)] private float minimumAngle = 30;
 
-    [SerializeField]
-    [Range(50, 90)]
-    private float maximumAngle = 60;
+    [SerializeField] [Range(50, 90)] private float maximumAngle = 60;
 
     private Vector3 _center;
     private float _rotationX;

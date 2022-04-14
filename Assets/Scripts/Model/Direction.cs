@@ -5,6 +5,6 @@
         Forward,
         Back,
         Left,
-        Right,
+        Right
     }
 }

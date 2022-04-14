@@ -21,14 +21,13 @@ namespace Field.Hard
         {
             var chunks = new ChunkData[Width, Width];
             for (var i = 0; i < Width; i++)
+            for (var j = 0; j < Width; j++)
             {
-                for (var j = 0; j < Width; j++)
-                {
-                    var position = new Vector3Int(i, 0, j);
-                    var direction = DirectionHelper.GetRandom();
-                    chunks[i, j] = new ChunkData(position, HardColor.Red, direction);
-                }
+                var position = new Vector3Int(i, 0, j);
+                var direction = DirectionHelper.GetRandom();
+                chunks[i, j] = new ChunkData(position, HardColor.Red, direction);
             }
+
             return chunks;
         }
 
@@ -44,16 +43,15 @@ namespace Field.Hard
             } while (x != 0 && y != 0 && x != Width - length && y != Width - width);
 
             for (var i = x; i < x + length; i++)
+            for (var j = y; j < y + width; j++)
             {
-                for (var j = y; j < y + width; j++)
-                {
-                    var chunk = chunks[i, j];
-                    var direction = chunk.Direction;
-                    var position = chunk.Position;
-                    position.y += 2;
-                    chunks[i, j] = new ChunkData(position, HardColor.Pink, direction);
-                }
+                var chunk = chunks[i, j];
+                var direction = chunk.Direction;
+                var position = chunk.Position;
+                position.y += 2;
+                chunks[i, j] = new ChunkData(position, HardColor.Pink, direction);
             }
+
             return (x, y, length, width);
         }
 
@@ -85,7 +83,7 @@ namespace Field.Hard
                         {
                             0 => y == 6 ? Random.Range(0, (int)Width - length) : 3,
                             3 => y == 0 ? Random.Range(0, (int)Width - length) : 3,
-                            _ => 3,
+                            _ => 3
                         };
                         break;
                     case 6:
@@ -94,7 +92,7 @@ namespace Field.Hard
                         {
                             0 => y == 6 ? Random.Range(0, (int)Width - length) : 0,
                             3 => y == 0 ? Random.Range(0, (int)Width - length) : 0,
-                            _ => 0,
+                            _ => 0
                         };
                         break;
                     default:
@@ -122,15 +120,13 @@ namespace Field.Hard
                 (y, x) = FirstCase(width, prevLength, prevY, prevX);
 
             for (var i = x; i < x + length; i++)
+            for (var j = y; j < y + width; j++)
             {
-                for (var j = y; j < y + width; j++)
-                {
-                    var chunk = chunks[i, j];
-                    var direction = chunk.Direction;
-                    var position = chunk.Position;
-                    position.y += 1;
-                    chunks[i, j] = new ChunkData(position, HardColor.Orange, direction);
-                }
+                var chunk = chunks[i, j];
+                var direction = chunk.Direction;
+                var position = chunk.Position;
+                position.y += 1;
+                chunks[i, j] = new ChunkData(position, HardColor.Orange, direction);
             }
         }
 
@@ -144,27 +140,19 @@ namespace Field.Hard
                 x = Random.Range(0, (int)Width - 2);
                 y = Random.Range(0, (int)Width - 2);
                 for (var i = x; i < x + 3; i++)
-                {
-                    for (var j = y; j < y + 3; j++)
-                    {
-                        if (chunks[i, j].Position.y != 0)
-                        {
-                            found = false;
-                        }
-                    }
-                }
+                for (var j = y; j < y + 3; j++)
+                    if (chunks[i, j].Position.y != 0)
+                        found = false;
             } while (!found);
 
             for (var i = x; i < x + 3; i++)
+            for (var j = y; j < y + 3; j++)
             {
-                for (var j = y; j < y + 3; j++)
-                { 
-                    var chunk = chunks[i, j];
-                    var direction = chunk.Direction;
-                    var position = chunk.Position;
-                    position.y += 1;
-                    chunks[i, j] = new ChunkData(position, HardColor.Yellow, direction);
-                }
+                var chunk = chunks[i, j];
+                var direction = chunk.Direction;
+                var position = chunk.Position;
+                position.y += 1;
+                chunks[i, j] = new ChunkData(position, HardColor.Yellow, direction);
             }
         }
     }

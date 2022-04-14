@@ -3,6 +3,6 @@
     public enum GameMode
     {
         Easy,
-        Hard,
+        Hard
     }
 }

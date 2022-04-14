@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &60704060951062389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 60704060951062388}
+  - component: {fileID: 60704060951062391}
+  - component: {fileID: 60704060951062390}
+  m_Layer: 0
+  m_Name: Field
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &60704060951062388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60704060951062389}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &60704060951062391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60704060951062389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce521870a7940bc448b4536324128bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &60704060951062390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60704060951062389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ae04dcc0ad0874cb76128ce227545a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commonTiles:
+  - {fileID: 4706034472329216832, guid: 6de841035bc5da14ebb47d51ddcc0307, type: 3}
+  - {fileID: 6126389663875042425, guid: 9fbb5274da065a44faba52fbf6ea5eee, type: 3}
+  - {fileID: 2789146997775830755, guid: 2603b63d8d8a709428e802d1cfbbbc53, type: 3}
+  - {fileID: 2470319130126734217, guid: eb12e5460d7e9454b880a848feccb9af, type: 3}
+  - {fileID: 4591208251739331599, guid: 0c3b28f6e8ae8534db50a2b5f23985ca, type: 3}
+  commonChance: 100
+  rareTiles:
+  - {fileID: 2800734323331324571, guid: f0a3534f5c9e01e489d05ae03b8b3809, type: 3}
+  - {fileID: 1677688942482641579, guid: e69e0066370eab34f99bea6342cd4443, type: 3}
+  - {fileID: 2007557691169351602, guid: 8ba18183fca1b6943bd046a252cefa3f, type: 3}
+  - {fileID: 1283688063237246443, guid: 8dd83fdb0c9d9cd4baf7026752bef59e, type: 3}
+  - {fileID: 7783393936100858618, guid: f73bb52e88e167447b2d97286c79e5c1, type: 3}
+  rareChance: 2
+  _easy:
+    id: 0
+  _hard:
+    id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: FieldDistribution/DifficultyDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Blue:
+          id: 2
+        Green:
+          id: 3
+        Red:
+          id: 4
+        Yellow:
+          id: 5
+    00000001:
+      type: {class: FieldDistribution/DifficultyDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Blue:
+          id: 6
+        Green:
+          id: 7
+        Red:
+          id: 8
+        Yellow:
+          id: 9
+    00000002:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 3572641761307909439, guid: a6cd4c6668331b34fafa8248bcdb0a0f,
+          type: 3}
+        Car: {fileID: 2984109130109581126, guid: cc31b12faa2caf148bb407c97eed121a,
+          type: 3}
+    00000003:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 4115341279731299309, guid: 9f5b07345494080438daf442932f9333,
+          type: 3}
+        Car: {fileID: 1271248075792695950, guid: caffaf2fab9997f4299d30e66920eb09,
+          type: 3}
+    00000004:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 3275720007308843282, guid: 921b0542843a99246b601a2e58ff883d,
+          type: 3}
+        Car: {fileID: 6522097794090012818, guid: 8d70d77da8e8b6f4b93f47f14ee5b3aa,
+          type: 3}
+    00000005:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 8364239986686417077, guid: 4df2e005df7639c4fb0b3fb7f6a35026,
+          type: 3}
+        Car: {fileID: 1715893191388548603, guid: 8090ad54207cc864c90ecb2b0a90500e,
+          type: 3}
+    00000006:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 5035565733922099631, guid: 84b873a6d777ab34786e3c1df9a9fb3b,
+          type: 3}
+        Car: {fileID: 8950924120989539765, guid: 37305023b904b9b4a9fd2440534bf0f4,
+          type: 3}
+    00000007:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 512390143809877255, guid: 13f3fb56313d1e347b301180d9adca47,
+          type: 3}
+        Car: {fileID: 584422503430011158, guid: c0bb95c0da8fb1545ad1197a1a7d5072,
+          type: 3}
+    00000008:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 3079290947142238473, guid: da3ccdb747c486c4193bd8e40387a8cc,
+          type: 3}
+        Car: {fileID: 1557804230437456926, guid: 6f140734bd72f0142ad02922338cea37,
+          type: 3}
+    00000009:
+      type: {class: FieldDistribution/TeamDistribution, ns: , asm: Assembly-CSharp}
+      data:
+        Base: {fileID: 4396933862559741816, guid: 8704a5d17338704418c437df3f031f3c,
+          type: 3}
+        Car: {fileID: 574699917495894839, guid: 651df032b8b2d9a46ac4e2fce3d48655,
+          type: 3}

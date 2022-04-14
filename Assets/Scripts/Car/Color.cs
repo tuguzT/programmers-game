@@ -5,6 +5,6 @@
         Red,
         Green,
         Yellow,
-        Blue,
+        Blue
     }
 }

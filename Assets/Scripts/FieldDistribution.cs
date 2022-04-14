@@ -1,21 +1,46 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Model;
 using UnityEngine;
+using Color = Car.Color;
+using Random = UnityEngine.Random;
 
+[SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
 public class FieldDistribution : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] commonTiles;
+    [SerializeField] private GameObject[] commonTiles;
 
-    [SerializeField]
-    [Range(0, 100)]
-    private int commonChance = 100;
+    [SerializeField] [Range(0, 100)] private int commonChance = 100;
 
-    [SerializeField]
-    private GameObject[] rareTiles;
+    [SerializeField] private GameObject[] rareTiles;
 
-    [SerializeField]
-    [Range(0, 100)]
-    private int rareChance = 2;
+    [SerializeField] [Range(0, 100)] private int rareChance = 2;
+
+    [Header("Difficulties")] [SerializeReference]
+    private DifficultyDistribution _easy = new DifficultyDistribution();
+
+    [SerializeReference] private DifficultyDistribution _hard = new DifficultyDistribution();
+
+    private class DifficultyDistribution
+    {
+        [SerializeReference] public TeamDistribution Blue = new TeamDistribution();
+
+        [SerializeReference] public TeamDistribution Green = new TeamDistribution();
+
+        [SerializeReference] public TeamDistribution Red = new TeamDistribution();
+
+        [SerializeReference] public TeamDistribution Yellow = new TeamDistribution();
+    }
+
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+    [SuppressMessage("ReSharper", "Unity.RedundantSerializeFieldAttribute")]
+    private class TeamDistribution
+    {
+        [SerializeField] public GameObject Base;
+
+        [SerializeField] public GameObject Car;
+    }
 
     public GameObject GetRandomTile()
     {
@@ -36,5 +61,38 @@ public class FieldDistribution : MonoBehaviour
         }
 
         return tiles.Last();
+    }
+
+    private DifficultyDistribution GetDifficultyDistribution(GameMode gameMode)
+    {
+        return gameMode switch
+        {
+            GameMode.Easy => _easy,
+            GameMode.Hard => _hard,
+            _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
+        };
+    }
+
+    private TeamDistribution GetTeamDistribution(Color color)
+    {
+        var difficultyDistribution = GetDifficultyDistribution(GameManager.Instance.GameMode);
+        return color switch
+        {
+            Color.Red => difficultyDistribution.Red,
+            Color.Green => difficultyDistribution.Green,
+            Color.Yellow => difficultyDistribution.Yellow,
+            Color.Blue => difficultyDistribution.Blue,
+            _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+        };
+    }
+
+    public GameObject GetBase(Color color)
+    {
+        return GetTeamDistribution(color).Base;
+    }
+
+    public GameObject GetCar(Color color)
+    {
+        return GetTeamDistribution(color).Car;
     }
 }

@@ -7,11 +7,14 @@ namespace Field
 {
     public static class FieldHelper
     {
-        public static IField Field(this GameMode gameMode) => gameMode switch
+        public static IField Field(this GameMode gameMode)
         {
-            GameMode.Easy => new EasyField(),
-            GameMode.Hard => new HardField(),
-            _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
-        };
+            return gameMode switch
+            {
+                GameMode.Easy => new EasyField(),
+                GameMode.Hard => new HardField(),
+                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
+            };
+        }
     }
 }
