@@ -21,8 +21,8 @@ public class FieldGenerator : MonoBehaviour
         {
             for (var j = 0; j < generatedData.GetLength(1); j++)
             {
-                var terrain = _fieldDistribution.GetRandomTerrain();
-                var instantiated = Instantiate(terrain, Vector3.zero, Quaternion.identity, transform);
+                var tile = _fieldDistribution.GetRandomTile();
+                var instantiated = Instantiate(tile, Vector3.zero, Quaternion.identity, transform);
 
                 var chunk = instantiated.AddComponent<Chunk>();
                 chunk.Data = generatedData[i, j];
