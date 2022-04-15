@@ -1,6 +1,6 @@
 ﻿namespace Model.Tile
 {
-    public class LiftData : TileData
+    public sealed class LiftData : TileData
     {
         public TileData To { get; }
 
@@ -9,7 +9,7 @@
             To = to;
         }
 
-        private static Direction CalculateFrom(TileData from, TileData to)
+        private static Direction CalculateFrom(ITile from, ITile to)
         {
             if (from.Position.x > to.Position.x)
                 return Direction.Left;

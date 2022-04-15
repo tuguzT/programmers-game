@@ -1,4 +1,5 @@
 using Model;
+using Model.Tile;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -28,7 +29,7 @@ public class CameraController : MonoBehaviour
         center = myTransform.position;
 
         var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
-        minDistance = fieldWidth * Model.Tile.TileData.Width;
+        minDistance = fieldWidth * ITile.Width;
         maxDistance = minDistance * 1.5f;
         zoomDistance = distance = (minDistance + maxDistance) / 2;
 

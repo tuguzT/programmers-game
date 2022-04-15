@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Model.Tile
 {
-    public class BaseData : TileData
+    public sealed class BaseData : TileData
     {
         public TeamColor TeamColor { get; }
         // ReSharper disable once UnusedAutoPropertyAccessor.Global

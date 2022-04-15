@@ -11,13 +11,13 @@ namespace Field.Easy
     {
         public uint Width => GameMode.Easy.FieldWidth();
 
-        public TileData[,] Generate()
+        public (TileData[,], CarData[]) Generate()
         {
             var chunks = Init();
             Generate2X2(chunks);
             Generate2X4(chunks);
-            GenerateBases(chunks);
-            return chunks;
+            var cars = GenerateBases(chunks);
+            return (chunks, cars);
         }
 
         private TileData[,] Init()
@@ -77,7 +77,7 @@ namespace Field.Easy
             }
         }
 
-        private void GenerateBases(TileData[,] chunks)
+        private CarData[] GenerateBases(TileData[,] chunks)
         {
             const GameMode gameMode = GameMode.Easy;
 
@@ -89,6 +89,15 @@ namespace Field.Easy
             chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], gameMode);
             chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], gameMode);
             chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
+
+            var cars = new CarData[]
+            {
+                new((BaseData)chunks[0, 0]),
+                new((BaseData)chunks[0, Width - 1]),
+                new((BaseData)chunks[Width - 1, 0]),
+                new((BaseData)chunks[Width - 1, Width - 1])
+            };
+            return cars;
         }
     }
 }

@@ -13,13 +13,13 @@ namespace Field.Hard
     {
         public uint Width => GameMode.Hard.FieldWidth();
 
-        public TileData[,] Generate()
+        public (TileData[,], CarData[]) Generate()
         {
             var chunks = Init();
             var dataFirst = Generate3X6X2(chunks);
             var dataSecond = Generate3X6X1(chunks, dataFirst);
             var dataThird = Generate3X3(chunks);
-            GenerateBases(chunks);
+            var cars = GenerateBases(chunks);
             for (var i = 0; i < 2; i++)
             {
                 GenerateLift(chunks, dataFirst);
@@ -27,7 +27,7 @@ namespace Field.Hard
                 GenerateLift(chunks, dataThird);
             }
 
-            return chunks;
+            return (chunks, cars);
         }
 
         private TileData[,] Init()
@@ -171,7 +171,7 @@ namespace Field.Hard
             return (x, y, 3, 3);
         }
 
-        private void GenerateBases(TileData[,] chunks)
+        private CarData[] GenerateBases(TileData[,] chunks)
         {
             const GameMode gameMode = GameMode.Hard;
 
@@ -183,6 +183,15 @@ namespace Field.Hard
             chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], gameMode);
             chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], gameMode);
             chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
+
+            var cars = new CarData[]
+            {
+                new((BaseData)chunks[0, 0]),
+                new((BaseData)chunks[0, Width - 1]),
+                new((BaseData)chunks[Width - 1, 0]),
+                new((BaseData)chunks[Width - 1, Width - 1])
+            };
+            return cars;
         }
 
         [SuppressMessage("ReSharper", "VariableHidesOuterVariable")]
