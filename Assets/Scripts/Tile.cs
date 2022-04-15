@@ -1,10 +1,11 @@
 using Attributes;
 using Model;
 using UnityEngine;
+using Model.Tile;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Outline))]
-public class Chunk : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     [field: SerializeField]
     [field: ReadOnly]
@@ -18,30 +19,30 @@ public class Chunk : MonoBehaviour
     [field: ReadOnly]
     public Direction Direction { get; private set; }
 
-    private Field.Chunk _data;
+    private TileData data;
 
-    public Field.Chunk Data
+    public TileData Data
     {
-        get => _data;
+        get => data;
         set
         {
-            Position = value.Position;
-            Color = value.Color.UnityColor;
-            Direction = value.Direction;
-            _data = value;
+            data = value;
+            Position = data.Position;
+            Color = data.Color.UnityColor;
+            Direction = data.Direction;
 
             var fieldWidth = (int)GameManager.Instance.GameMode.FieldWidth();
             var offset = new Vector3
             {
-                x = (1f - fieldWidth) * Field.Chunk.Width / 2f,
-                z = (1f - fieldWidth) * Field.Chunk.Width / 2f
+                x = (1f - fieldWidth) * TileData.Width / 2f,
+                z = (1f - fieldWidth) * TileData.Width / 2f
             };
 
             transform.position = offset + new Vector3
             {
-                x = Position.x * Field.Chunk.Width,
-                y = Position.y * Field.Chunk.Height,
-                z = Position.z * Field.Chunk.Width
+                x = Position.x * TileData.Width,
+                y = Position.y * TileData.Height,
+                z = Position.z * TileData.Width
             };
             transform.rotation = Direction.ToQuaternion();
             _renderer.material.color = Color;

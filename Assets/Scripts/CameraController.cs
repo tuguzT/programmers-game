@@ -13,29 +13,29 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] [Range(50, 90)] private float maximumAngle = 60;
 
-    private Vector3 _center;
-    private float _rotationX;
-    private float _rotationY;
+    private Vector3 center;
+    private float rotationX;
+    private float rotationY;
 
-    private float _zoomDistance;
-    private float _distance;
-    private float _minDistance;
-    private float _maxDistance;
+    private float zoomDistance;
+    private float distance;
+    private float minDistance;
+    private float maxDistance;
 
     private void Start()
     {
         var myTransform = transform;
-        _center = myTransform.position;
+        center = myTransform.position;
 
         var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
-        _minDistance = fieldWidth * Field.Chunk.Width;
-        _maxDistance = _minDistance * 1.5f;
-        _zoomDistance = _distance = (_minDistance + _maxDistance) / 2;
+        minDistance = fieldWidth * Model.Tile.TileData.Width;
+        maxDistance = minDistance * 1.5f;
+        zoomDistance = distance = (minDistance + maxDistance) / 2;
 
-        currentCamera.transform.position = _center - myTransform.forward * _distance;
-        var angle = _rotationX = (minimumAngle + maximumAngle) / 2;
-        currentCamera.transform.RotateAround(_center, myTransform.right, angle);
-        currentCamera.transform.LookAt(_center);
+        currentCamera.transform.position = center - myTransform.forward * distance;
+        var angle = rotationX = (minimumAngle + maximumAngle) / 2;
+        currentCamera.transform.RotateAround(center, myTransform.right, angle);
+        currentCamera.transform.LookAt(center);
     }
 
     private void LateUpdate()
@@ -47,16 +47,16 @@ public class CameraController : MonoBehaviour
             var mouseX = Input.GetAxis("Mouse X");
             var mouseY = -Input.GetAxis("Mouse Y");
 
-            _rotationY += mouseX * cameraSpeed * Time.deltaTime;
-            _rotationX += mouseY * cameraSpeed * Time.deltaTime;
-            _rotationX = Mathf.Clamp(_rotationX, minimumAngle, maximumAngle);
+            rotationY += mouseX * cameraSpeed * Time.deltaTime;
+            rotationX += mouseY * cameraSpeed * Time.deltaTime;
+            rotationX = Mathf.Clamp(rotationX, minimumAngle, maximumAngle);
 
-            cameraTransform.localEulerAngles = new Vector3(_rotationX, _rotationY);
+            cameraTransform.localEulerAngles = new Vector3(rotationX, rotationY);
         }
 
-        _zoomDistance -= Input.mouseScrollDelta.y * 0.5f;
-        _zoomDistance = Mathf.Clamp(_zoomDistance, _minDistance, _maxDistance);
-        _distance = Mathf.MoveTowards(_distance, _zoomDistance, zoomSpeed * Time.deltaTime);
-        cameraTransform.position = _center - cameraTransform.forward * _distance;
+        zoomDistance -= Input.mouseScrollDelta.y * 0.5f;
+        zoomDistance = Mathf.Clamp(zoomDistance, minDistance, maxDistance);
+        distance = Mathf.MoveTowards(distance, zoomDistance, zoomSpeed * Time.deltaTime);
+        cameraTransform.position = center - cameraTransform.forward * distance;
     }
 }

@@ -3,16 +3,17 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Model;
+using Model.Tile;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Field.Hard
 {
-    internal sealed class HardField : IField
+    internal sealed class HardFieldGenerator : IFieldGenerator
     {
         public uint Width => GameMode.Hard.FieldWidth();
 
-        public Chunk[,] Generate()
+        public TileData[,] Generate()
         {
             var chunks = Init();
             var dataFirst = Generate3X6X2(chunks);
@@ -29,21 +30,21 @@ namespace Field.Hard
             return chunks;
         }
 
-        private Chunk[,] Init()
+        private TileData[,] Init()
         {
-            var chunks = new Chunk[Width, Width];
+            var chunks = new TileData[Width, Width];
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Width; j++)
             {
                 var position = new Vector3Int(i, 0, j);
                 var direction = DirectionHelper.GetRandom();
-                chunks[i, j] = new Chunk(position, HardColor.Red, direction);
+                chunks[i, j] = new TileData(position, HardColor.Red, direction);
             }
 
             return chunks;
         }
 
-        private (int, int, int, int) Generate3X6X2(Chunk[,] chunks)
+        private (int, int, int, int) Generate3X6X2(TileData[,] chunks)
         {
             int x, y, length, width;
             do
@@ -61,14 +62,14 @@ namespace Field.Hard
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 2;
-                chunks[i, j] = new Chunk(position, HardColor.Pink, direction);
+                chunks[i, j] = new TileData(position, HardColor.Pink, direction);
             }
 
             return (x, y, length, width);
         }
 
         [SuppressMessage("ReSharper", "VariableHidesOuterVariable")]
-        private (int, int, int, int) Generate3X6X1(Chunk[,] chunks, (int, int, int, int) data)
+        private (int, int, int, int) Generate3X6X1(TileData[,] chunks, (int, int, int, int) data)
         {
             (int, int) FirstCase(int length, int prevWidth, int prevX, int prevY)
             {
@@ -136,13 +137,13 @@ namespace Field.Hard
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 1;
-                chunks[i, j] = new Chunk(position, HardColor.Orange, direction);
+                chunks[i, j] = new TileData(position, HardColor.Orange, direction);
             }
 
             return (x, y, length, width);
         }
 
-        private (int, int, int, int) Generate3X3(Chunk[,] chunks)
+        private (int, int, int, int) Generate3X3(TileData[,] chunks)
         {
             int x, y;
             bool found;
@@ -164,28 +165,28 @@ namespace Field.Hard
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 1;
-                chunks[i, j] = new Chunk(position, HardColor.Yellow, direction);
+                chunks[i, j] = new TileData(position, HardColor.Yellow, direction);
             }
 
             return (x, y, 3, 3);
         }
 
-        private void GenerateBases(Chunk[,] chunks)
+        private void GenerateBases(TileData[,] chunks)
         {
             const GameMode gameMode = GameMode.Hard;
 
-            var colors = Enum.GetValues(typeof(Car.Color))
-                .Cast<Car.Color>()
+            var colors = Enum.GetValues(typeof(TeamColor))
+                .Cast<TeamColor>()
                 .OrderBy(_ => Random.Range(0f, 1f))
                 .ToImmutableList();
-            chunks[0, 0] = new Base(chunks[0, 0].Position, colors[0], gameMode);
-            chunks[0, Width - 1] = new Base(chunks[0, Width - 1].Position, colors[1], gameMode);
-            chunks[Width - 1, 0] = new Base(chunks[Width - 1, 0].Position, colors[2], gameMode);
-            chunks[Width - 1, Width - 1] = new Base(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
+            chunks[0, 0] = new BaseData(chunks[0, 0].Position, colors[0], gameMode);
+            chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], gameMode);
+            chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], gameMode);
+            chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
         }
 
         [SuppressMessage("ReSharper", "VariableHidesOuterVariable")]
-        private void GenerateLift(Chunk[,] chunks, (int, int, int, int) data)
+        private void GenerateLift(TileData[,] chunks, (int, int, int, int) data)
         {
             const int attempts = 10;
 
@@ -202,7 +203,7 @@ namespace Field.Hard
                         if (y + width >= Width) return false;
 
                         for (var k = x; k < x + length; k++)
-                            if (chunks[k, y + width - 1] is Lift)
+                            if (chunks[k, y + width - 1] is LiftData)
                                 return false;
                         do
                         {
@@ -210,11 +211,11 @@ namespace Field.Hard
                                 return false;
                             range = Random.Range(0, length) + x;
                         } while (chunks[range, y + width - 1].Position.y <= chunks[range, y + width].Position.y
-                                 || chunks[range, y + width] is Lift
-                                 || chunks[range, y + width - 1] is Lift
+                                 || chunks[range, y + width] is LiftData
+                                 || chunks[range, y + width - 1] is LiftData
                                  || (y + width == 8 && range is 8 or 0));
 
-                        chunks[range, y + width - 1] = new Lift(
+                        chunks[range, y + width - 1] = new LiftData(
                             chunks[range, y + width - 1],
                             chunks[range, y + width]
                         );
@@ -223,7 +224,7 @@ namespace Field.Hard
                         if (y <= 0) return false;
 
                         for (var k = x; k < x + length; k++)
-                            if (chunks[k, y] is Lift)
+                            if (chunks[k, y] is LiftData)
                                 return false;
                         do
                         {
@@ -231,11 +232,11 @@ namespace Field.Hard
                                 return false;
                             range = Random.Range(0, length) + x;
                         } while (chunks[range, y].Position.y <= chunks[range, y - 1].Position.y
-                                 || chunks[range, y - 1] is Lift
-                                 || chunks[range, y] is Lift
+                                 || chunks[range, y - 1] is LiftData
+                                 || chunks[range, y] is LiftData
                                  || (y == 1 && range is 8 or 0));
 
-                        chunks[range, y] = new Lift(
+                        chunks[range, y] = new LiftData(
                             chunks[range, y],
                             chunks[range, y - 1]
                         );
@@ -244,7 +245,7 @@ namespace Field.Hard
                         if (x + length >= Width) return false;
 
                         for (var k = y; k < y + width; k++)
-                            if (chunks[x + length - 1, k] is Lift)
+                            if (chunks[x + length - 1, k] is LiftData)
                                 return false;
                         do
                         {
@@ -252,11 +253,11 @@ namespace Field.Hard
                                 return false;
                             range = Random.Range(0, width) + y;
                         } while (chunks[x + length - 1, range].Position.y <= chunks[x + length, range].Position.y
-                                 || chunks[x + length, range] is Lift
-                                 || chunks[x + length - 1, range] is Lift
+                                 || chunks[x + length, range] is LiftData
+                                 || chunks[x + length - 1, range] is LiftData
                                  || (x + length == 8 && range is 8 or 0));
 
-                        chunks[x + length - 1, range] = new Lift(
+                        chunks[x + length - 1, range] = new LiftData(
                             chunks[x + length - 1, range],
                             chunks[x + length, range]
                         );
@@ -265,7 +266,7 @@ namespace Field.Hard
                         if (x <= 0) return false;
 
                         for (var k = y; k < y + width; k++)
-                            if (chunks[x, k] is Lift)
+                            if (chunks[x, k] is LiftData)
                                 return false;
                         do
                         {
@@ -273,11 +274,11 @@ namespace Field.Hard
                                 return false;
                             range = Random.Range(0, width) + y;
                         } while (chunks[x, range].Position.y <= chunks[x - 1, range].Position.y
-                                 || chunks[x - 1, range] is Lift
-                                 || chunks[x, range] is Lift
+                                 || chunks[x - 1, range] is LiftData
+                                 || chunks[x, range] is LiftData
                                  || (x == 1 && range is 8 or 0));
 
-                        chunks[x, range] = new Lift(
+                        chunks[x, range] = new LiftData(
                             chunks[x, range],
                             chunks[x - 1, range]
                         );

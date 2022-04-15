@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Field
+namespace Model.Tile
 {
     public interface IColor
     {

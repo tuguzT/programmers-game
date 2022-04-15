@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Linq;
 using Model;
+using Model.Tile;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Field.Easy
 {
-    internal sealed class EasyField : IField
+    internal sealed class EasyFieldGenerator : IFieldGenerator
     {
         public uint Width => GameMode.Easy.FieldWidth();
 
-        public Chunk[,] Generate()
+        public TileData[,] Generate()
         {
             var chunks = Init();
             Generate2X2(chunks);
@@ -19,21 +20,21 @@ namespace Field.Easy
             return chunks;
         }
 
-        private Chunk[,] Init()
+        private TileData[,] Init()
         {
-            var chunks = new Chunk[Width, Width];
+            var chunks = new TileData[Width, Width];
             for (var i = 0; i < Width; i++)
             for (var j = 0; j < Width; j++)
             {
                 var position = new Vector3Int(i, 0, j);
                 var direction = DirectionHelper.GetRandom();
-                chunks[i, j] = new Chunk(position, EasyColor.Yellow, direction);
+                chunks[i, j] = new TileData(position, EasyColor.Yellow, direction);
             }
 
             return chunks;
         }
 
-        private void Generate2X2(Chunk[,] chunks)
+        private void Generate2X2(TileData[,] chunks)
         {
             var x = Random.Range(0, (int)Width - 1);
             var y = Random.Range(0, (int)Width - 1);
@@ -44,11 +45,11 @@ namespace Field.Easy
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 1;
-                chunks[i, j] = new Chunk(position, EasyColor.DarkGreen, direction);
+                chunks[i, j] = new TileData(position, EasyColor.DarkGreen, direction);
             }
         }
 
-        private void Generate2X4(Chunk[,] chunks)
+        private void Generate2X4(TileData[,] chunks)
         {
             int length, width, x, y;
             bool found;
@@ -72,22 +73,22 @@ namespace Field.Easy
                 var direction = chunk.Direction;
                 var position = chunk.Position;
                 position.y += 1;
-                chunks[i, j] = new Chunk(position, EasyColor.Green, direction);
+                chunks[i, j] = new TileData(position, EasyColor.Green, direction);
             }
         }
 
-        private void GenerateBases(Chunk[,] chunks)
+        private void GenerateBases(TileData[,] chunks)
         {
             const GameMode gameMode = GameMode.Easy;
 
-            var colors = Enum.GetValues(typeof(Car.Color))
-                .Cast<Car.Color>()
+            var colors = Enum.GetValues(typeof(TeamColor))
+                .Cast<TeamColor>()
                 .OrderBy(_ => Random.Range(0f, 1f))
                 .ToList();
-            chunks[0, 0] = new Base(chunks[0, 0].Position, colors[0], gameMode);
-            chunks[0, Width - 1] = new Base(chunks[0, Width - 1].Position, colors[1], gameMode);
-            chunks[Width - 1, 0] = new Base(chunks[Width - 1, 0].Position, colors[2], gameMode);
-            chunks[Width - 1, Width - 1] = new Base(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
+            chunks[0, 0] = new BaseData(chunks[0, 0].Position, colors[0], gameMode);
+            chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], gameMode);
+            chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], gameMode);
+            chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
         }
     }
 }

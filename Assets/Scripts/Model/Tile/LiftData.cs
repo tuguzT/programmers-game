@@ -1,17 +1,15 @@
-﻿using Model;
-
-namespace Field
+﻿namespace Model.Tile
 {
-    public class Lift : Chunk
+    public class LiftData : TileData
     {
-        public Chunk To { get; }
+        public TileData To { get; }
 
-        public Lift(Chunk from, Chunk to) : base(from.Position, from.Color, CalculateFrom(from, to))
+        public LiftData(TileData from, TileData to) : base(from.Position, from.Color, CalculateFrom(from, to))
         {
             To = to;
         }
 
-        private static Direction CalculateFrom(Chunk from, Chunk to)
+        private static Direction CalculateFrom(TileData from, TileData to)
         {
             if (from.Position.x > to.Position.x)
                 return Direction.Left;

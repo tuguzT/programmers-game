@@ -1,6 +1,6 @@
-﻿namespace Car
+﻿namespace Model
 {
-    public enum Color
+    public enum TeamColor
     {
         Red,
         Green,

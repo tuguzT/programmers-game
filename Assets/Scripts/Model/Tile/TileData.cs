@@ -1,9 +1,8 @@
-﻿using Model;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Field
+namespace Model.Tile
 {
-    public class Chunk
+    public class TileData
     {
         public const float Width = 1.5f;
         public const float Height = 0.6f;
@@ -12,7 +11,7 @@ namespace Field
         public IColor Color { get; }
         public Direction Direction { get; }
 
-        public Chunk(Vector3Int position, IColor color, Direction direction)
+        public TileData(Vector3Int position, IColor color, Direction direction)
         {
             Position = position;
             Color = color;

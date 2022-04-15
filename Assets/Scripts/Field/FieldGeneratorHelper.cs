@@ -5,14 +5,14 @@ using Model;
 
 namespace Field
 {
-    public static class FieldHelper
+    public static class FieldGeneratorHelper
     {
-        public static IField Field(this GameMode gameMode)
+        public static IFieldGenerator GetFieldGenerator(this GameMode gameMode)
         {
             return gameMode switch
             {
-                GameMode.Easy => new EasyField(),
-                GameMode.Hard => new HardField(),
+                GameMode.Easy => new EasyFieldGenerator(),
+                GameMode.Hard => new HardFieldGenerator(),
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
             };
         }

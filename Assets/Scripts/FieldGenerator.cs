@@ -1,36 +1,37 @@
 using Field;
+using Model.Tile;
 using UnityEngine;
 
 [RequireComponent(typeof(FieldDistribution))]
 public class FieldGenerator : MonoBehaviour
 {
-    private Chunk[,] _chunks;
-    private FieldDistribution _fieldDistribution;
+    private Tile[,] tiles;
+    private FieldDistribution fieldDistribution;
 
     private void Awake()
     {
-        _fieldDistribution = GetComponent<FieldDistribution>();
+        fieldDistribution = GetComponent<FieldDistribution>();
 
         var gameMode = GameManager.Instance.GameMode;
-        var field = gameMode.Field();
-        _chunks = new Chunk[field.Width, field.Width];
+        var fieldGenerator = gameMode.GetFieldGenerator();
+        tiles = new Tile[fieldGenerator.Width, fieldGenerator.Width];
 
-        var chunks = field.Generate();
-        for (var i = 0; i < chunks.GetLength(0); i++)
-        for (var j = 0; j < chunks.GetLength(1); j++)
+        var generated = fieldGenerator.Generate();
+        for (var i = 0; i < generated.GetLength(0); i++)
+        for (var j = 0; j < generated.GetLength(1); j++)
         {
-            var chunk = chunks[i, j];
-            var original = chunk switch
+            var tileData = generated[i, j];
+            var original = tileData switch
             {
-                Base @base => _fieldDistribution.GetBase(@base.CarColor),
-                Lift => _fieldDistribution.Lift,
-                _ => _fieldDistribution.GetRandomTile()
+                BaseData @base => fieldDistribution.GetBase(@base.TeamColor),
+                LiftData => fieldDistribution.Lift,
+                _ => fieldDistribution.GetRandomTile()
             };
             var instantiated = Instantiate(original, Vector3.zero, Quaternion.identity, transform);
 
-            var chunkComponent = instantiated.AddComponent<Chunk>();
-            chunkComponent.Data = chunk;
-            _chunks[i, j] = chunkComponent;
+            var tile = instantiated.AddComponent<Tile>();
+            tile.Data = tileData;
+            tiles[i, j] = tile;
         }
     }
 }

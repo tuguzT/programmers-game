@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Model;
 using UnityEngine;
-using Color = Car.Color;
 using Random = UnityEngine.Random;
 
 [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
@@ -23,9 +22,9 @@ public class FieldDistribution : MonoBehaviour
     public GameObject Lift { get; private set; }
 
     [Header("Difficulties")] [SerializeReference]
-    private DifficultyDistribution _easy = new();
+    private DifficultyDistribution easy = new();
 
-    [SerializeReference] private DifficultyDistribution _hard = new();
+    [SerializeReference] private DifficultyDistribution hard = new();
 
     private class DifficultyDistribution
     {
@@ -72,32 +71,32 @@ public class FieldDistribution : MonoBehaviour
     {
         return gameMode switch
         {
-            GameMode.Easy => _easy,
-            GameMode.Hard => _hard,
+            GameMode.Easy => easy,
+            GameMode.Hard => hard,
             _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
         };
     }
 
-    private TeamDistribution GetTeamDistribution(Color color)
+    private TeamDistribution GetTeamDistribution(TeamColor teamColor)
     {
         var difficultyDistribution = GetDifficultyDistribution(GameManager.Instance.GameMode);
-        return color switch
+        return teamColor switch
         {
-            Color.Red => difficultyDistribution.Red,
-            Color.Green => difficultyDistribution.Green,
-            Color.Yellow => difficultyDistribution.Yellow,
-            Color.Blue => difficultyDistribution.Blue,
-            _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+            TeamColor.Red => difficultyDistribution.Red,
+            TeamColor.Green => difficultyDistribution.Green,
+            TeamColor.Yellow => difficultyDistribution.Yellow,
+            TeamColor.Blue => difficultyDistribution.Blue,
+            _ => throw new ArgumentOutOfRangeException(nameof(teamColor), teamColor, null)
         };
     }
 
-    public GameObject GetBase(Color color)
+    public GameObject GetBase(TeamColor teamColor)
     {
-        return GetTeamDistribution(color).Base;
+        return GetTeamDistribution(teamColor).Base;
     }
 
-    public GameObject GetCar(Color color)
+    public GameObject GetCar(TeamColor teamColor)
     {
-        return GetTeamDistribution(color).Car;
+        return GetTeamDistribution(teamColor).Car;
     }
 }
