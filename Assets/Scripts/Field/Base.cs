@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Linq;
 using Model;
 using UnityEngine;
-using Color = Car.Color;
 
 namespace Field
 {
     public class Base : Chunk
     {
-        public Color CarColor { get; }
+        public Car.Color CarColor { get; }
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        public ImmutableHashSet<Color> LabColors { get; }
+        public ImmutableHashSet<Car.Color> LabColors { get; }
 
-        public Base(Vector3Int position, Color carColor, GameMode gameMode) : base(position, BaseColor.Instance,
+        public Base(Vector3Int position, Car.Color carColor, GameMode gameMode) : base(position, BaseColor.Instance,
             Direction.Forward)
         {
             LabColors = gameMode switch
             {
-                GameMode.Easy => ImmutableHashSet.Create(Car.Color.Yellow, Car.Color.Blue, Car.Color.Green,
-                    Car.Color.Red),
+                GameMode.Easy => Enum.GetValues(typeof(Car.Color)).Cast<Car.Color>().ToImmutableHashSet(),
                 GameMode.Hard => carColor switch
                 {
                     Car.Color.Red => ImmutableHashSet.Create(Car.Color.Blue, Car.Color.Yellow),

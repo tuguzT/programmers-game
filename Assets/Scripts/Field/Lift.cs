@@ -13,13 +13,13 @@ namespace Field
 
         private static Direction CalculateFrom(Chunk from, Chunk to)
         {
-            if (to.Position.x < from.Position.x)
+            if (from.Position.x > to.Position.x)
                 return Direction.Left;
 
-            if (to.Position.x > from.Position.x)
+            if (from.Position.x < to.Position.x)
                 return Direction.Right;
 
-            return to.Position.z < from.Position.z ? Direction.Back : Direction.Forward;
+            return from.Position.z > to.Position.z ? Direction.Back : Direction.Forward;
         }
     }
 }

@@ -32,9 +32,9 @@ public class CameraController : MonoBehaviour
         _maxDistance = _minDistance * 1.5f;
         _zoomDistance = _distance = (_minDistance + _maxDistance) / 2;
 
-        currentCamera.transform.position = _center + myTransform.forward * _distance;
-        var angle = (minimumAngle + maximumAngle) / 2;
-        currentCamera.transform.RotateAround(_center, -myTransform.right, angle);
+        currentCamera.transform.position = _center - myTransform.forward * _distance;
+        var angle = _rotationX = (minimumAngle + maximumAngle) / 2;
+        currentCamera.transform.RotateAround(_center, myTransform.right, angle);
         currentCamera.transform.LookAt(_center);
     }
 

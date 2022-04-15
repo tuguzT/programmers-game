@@ -1,4 +1,3 @@
-using System;
 using Model;
 using UnityEngine;
 
@@ -13,9 +12,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) throw new Exception("It is an error to instantiate new GameManager instance");
+        if (Instance is not null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
-        DontDestroyOnLoad(Instance.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
