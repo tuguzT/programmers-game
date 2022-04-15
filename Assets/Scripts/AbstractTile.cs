@@ -9,35 +9,23 @@ public abstract class AbstractTile : MonoBehaviour
 {
     [SerializeField]
     [ReadOnly]
-    private Vector3Int position;
+    protected Vector3Int position;
 
-    public Vector3Int Position
+    public virtual Vector3Int Position
     {
         get => position;
         protected set
         {
             position = value;
-
-            var fieldWidth = (int)GameManager.Instance.GameMode.FieldWidth();
-            var offset = new Vector3
-            {
-                x = (1f - fieldWidth) * ITile.Width / 2f,
-                z = (1f - fieldWidth) * ITile.Width / 2f
-            };
-            transform.position = offset + new Vector3
-            {
-                x = position.x * ITile.Width,
-                y = position.y * ITile.Height,
-                z = position.z * ITile.Width
-            };
+            transform.position = GetWorldPosition(position);
         }
     }
 
     [SerializeField]
     [ReadOnly]
-    private Direction direction;
+    protected Direction direction;
 
-    public Direction Direction
+    public virtual Direction Direction
     {
         get => direction;
         protected set
@@ -75,5 +63,22 @@ public abstract class AbstractTile : MonoBehaviour
     private void OnMouseExit()
     {
         Outline.enabled = false;
+    }
+
+    protected static Vector3 GetWorldPosition(Vector3Int position)
+    {
+        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+        var offset = new Vector3
+        {
+            x = (1f - fieldWidth) * ITile.Width / 2f,
+            z = (1f - fieldWidth) * ITile.Width / 2f
+        };
+        var newPosition = new Vector3
+        {
+            x = position.x * ITile.Width,
+            y = position.y * ITile.Height,
+            z = position.z * ITile.Width
+        };
+        return offset + newPosition;
     }
 }

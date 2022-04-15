@@ -20,6 +20,8 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
+        if (Car.IsMoving) return;
+
         if (Input.GetKeyDown("w"))
         {
             Car.MoveForward();
