@@ -7,6 +7,7 @@ using UnityEngine;
 
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+[RequireComponent(typeof(AudioSource))]
 public class Car : AbstractTile
 {
     [field: SerializeField]
@@ -37,6 +38,8 @@ public class Car : AbstractTile
 
     private Quaternion targetRotation;
 
+    private AudioSource audioSource;
+
     public override void FromData(ITile tile)
     {
         base.Position = tile.Position;
@@ -51,6 +54,7 @@ public class Car : AbstractTile
 
     protected override void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         base.Awake();
         Outline.OutlineColor = Color.red;
     }
@@ -71,7 +75,8 @@ public class Car : AbstractTile
         {
             const double threshold = 0.001;
             var cachedTransform = transform;
-            return Vector3.Distance(cachedTransform.position, targetPosition) > threshold
+            return audioSource.isPlaying
+                   || Vector3.Distance(cachedTransform.position, targetPosition) > threshold
                    || Mathf.Abs(Quaternion.Angle(cachedTransform.rotation, targetRotation)) > threshold;
         }
     }
@@ -106,16 +111,19 @@ public class Car : AbstractTile
         var tileBelow = FieldGenerator.Tiles[newPosition.x, newPosition.z];
         newPosition.y = tileBelow.Position.y + 1;
         Position = newPosition;
+        audioSource.Play();
         return true;
     }
 
     public void TurnRight()
     {
         Direction = Direction.TurnRight();
+        audioSource.Play();
     }
 
     public void TurnLeft()
     {
         Direction = Direction.TurnLeft();
+        audioSource.Play();
     }
 }
