@@ -16,5 +16,12 @@ namespace Model.Tile
             Direction = baseData.Direction;
             TeamColor = baseData.TeamColor;
         }
+
+        public CarData(Vector3Int position, Direction direction, TeamColor color)
+        {
+            Position = position;
+            Direction = direction;
+            TeamColor = color;
+        }
     }
 }

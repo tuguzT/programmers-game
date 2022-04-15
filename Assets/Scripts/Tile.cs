@@ -1,21 +1,29 @@
 using Attributes;
-using UnityEngine;
 using Model.Tile;
+using UnityEngine;
 
-public class Tile : BaseTile
+public class Tile : AbstractTile
 {
-    [field: SerializeField]
-    [field: ReadOnly]
-    public Color Color { get; private set; }
+    [SerializeField]
+    [ReadOnly]
+    private Color color;
 
-    public new TileData Data
+    public Color Color
     {
-        get => (TileData)base.Data;
-        set
+        get => color;
+        private set
         {
-            base.Data = value;
-            Color = Data.Color.UnityColor;
+            color = value;
             renderer.material.color = Color;
+        }
+    }
+
+    public override void FromData(ITile tile)
+    {
+        base.FromData(tile);
+        if (tile is TileData tileData)
+        {
+            Color = tileData.Color.UnityColor;
         }
     }
 

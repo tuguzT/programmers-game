@@ -6,8 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(FieldDistribution))]
 public class FieldGenerator : MonoBehaviour
 {
-    private Tile[,] tiles;
-    private Car[] cars;
+    public Tile[,] Tiles { get; private set; }
+    public Car[] Cars { get; private set; }
+
     private FieldDistribution fieldDistribution;
 
     private void Awake()
@@ -16,7 +17,7 @@ public class FieldGenerator : MonoBehaviour
 
         var gameMode = GameManager.Instance.GameMode;
         var fieldGenerator = gameMode.GetFieldGenerator();
-        tiles = new Tile[fieldGenerator.Width, fieldGenerator.Width];
+        Tiles = new Tile[fieldGenerator.Width, fieldGenerator.Width];
 
         var (generatedTiles, generatedCars) = fieldGenerator.Generate();
         for (var i = 0; i < generatedTiles.GetLength(0); i++)
@@ -32,19 +33,22 @@ public class FieldGenerator : MonoBehaviour
             var instantiated = Instantiate(original, Vector3.zero, Quaternion.identity, transform);
 
             var tile = instantiated.AddComponent<Tile>();
-            tile.Data = tileData;
-            tiles[i, j] = tile;
+            tile.FieldGenerator = this;
+            tile.FromData(tileData);
+            Tiles[i, j] = tile;
         }
 
-        Car CarDataToComponent(CarData carData, int _)
+        Car CarDataToComponent(CarData carData)
         {
             var original = fieldDistribution.GetCar(carData.TeamColor);
             var instantiated = Instantiate(original, Vector3.zero, Quaternion.identity, transform);
+
             var car = instantiated.AddComponent<Car>();
-            car.Data = carData;
+            car.FieldGenerator = this;
+            car.FromData(carData);
             return car;
         }
 
-        cars = generatedCars.Select(CarDataToComponent).ToArray();
+        Cars = generatedCars.Select(CarDataToComponent).ToArray();
     }
 }

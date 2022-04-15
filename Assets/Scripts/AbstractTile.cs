@@ -5,26 +5,18 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Outline))]
-public abstract class BaseTile : MonoBehaviour
+public abstract class AbstractTile : MonoBehaviour
 {
-    [field: SerializeField]
-    [field: ReadOnly]
-    public Vector3Int Position { get; private set; }
+    [SerializeField]
+    [ReadOnly]
+    private Vector3Int position;
 
-    [field: SerializeField]
-    [field: ReadOnly]
-    public Direction Direction { get; private set; }
-
-    private ITile data;
-
-    protected ITile Data
+    public Vector3Int Position
     {
-        get => data;
-        set
+        get => position;
+        protected set
         {
-            data = value;
-            Position = data.Position;
-            Direction = data.Direction;
+            position = value;
 
             var fieldWidth = (int)GameManager.Instance.GameMode.FieldWidth();
             var offset = new Vector3
@@ -32,16 +24,36 @@ public abstract class BaseTile : MonoBehaviour
                 x = (1f - fieldWidth) * ITile.Width / 2f,
                 z = (1f - fieldWidth) * ITile.Width / 2f
             };
-
             transform.position = offset + new Vector3
             {
-                x = Position.x * ITile.Width,
-                y = Position.y * ITile.Height,
-                z = Position.z * ITile.Width
+                x = position.x * ITile.Width,
+                y = position.y * ITile.Height,
+                z = position.z * ITile.Width
             };
+        }
+    }
+
+    [SerializeField]
+    [ReadOnly]
+    private Direction direction;
+
+    public Direction Direction
+    {
+        get => direction;
+        protected set
+        {
+            direction = value;
             transform.rotation = Direction.ToQuaternion();
         }
     }
+
+    public virtual void FromData(ITile tile)
+    {
+        Position = tile.Position;
+        Direction = tile.Direction;
+    }
+
+    public FieldGenerator FieldGenerator { get; set; }
 
     protected Outline Outline { get; private set; }
 

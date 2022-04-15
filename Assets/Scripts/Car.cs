@@ -1,21 +1,24 @@
-﻿using Attributes;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Attributes;
 using Model;
 using Model.Tile;
 using UnityEngine;
 
-public class Car : BaseTile
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+public class Car : AbstractTile
 {
     [field: SerializeField]
     [field: ReadOnly]
     public TeamColor TeamColor { get; private set; }
 
-    public new CarData Data
+    public override void FromData(ITile tile)
     {
-        get => (CarData)base.Data;
-        set
+        base.FromData(tile);
+        if (tile is CarData carData)
         {
-            base.Data = value;
-            TeamColor = Data.TeamColor;
+            TeamColor = carData.TeamColor;
         }
     }
 
@@ -23,5 +26,55 @@ public class Car : BaseTile
     {
         base.Awake();
         Outline.OutlineColor = Color.red;
+    }
+
+    public bool MoveForward()
+    {
+        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+
+        Vector3Int position;
+        switch (Direction)
+        {
+            case Direction.Forward:
+                if (Position.z == fieldWidth - 1) return false;
+                position = Position + Vector3Int.forward;
+                break;
+            case Direction.Back:
+                if (Position.z == 0) return false;
+                position = Position + Vector3Int.back;
+                break;
+            case Direction.Left:
+                if (Position.x == 0) return false;
+                position = Position + Vector3Int.left;
+                break;
+            case Direction.Right:
+                if (Position.x == fieldWidth - 1) return false;
+                position = Position + Vector3Int.right;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(Direction), Direction, null);
+        }
+
+        var tileBelow = FieldGenerator.Tiles[position.x, position.z];
+        position.y = tileBelow.Position.y + 1;
+        Position = position;
+        return true;
+    }
+
+    public void MoveForwardToFloor()
+    {
+        while (MoveForward())
+        {
+        }
+    }
+
+    public void TurnRight()
+    {
+        Direction = Direction.TurnRight();
+    }
+
+    public void TurnLeft()
+    {
+        Direction = Direction.TurnLeft();
     }
 }

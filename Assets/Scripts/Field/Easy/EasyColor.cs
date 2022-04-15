@@ -12,10 +12,10 @@ namespace Field.Easy
             UnityColor = unityColor;
         }
 
-        public static readonly EasyColor Yellow = new(new Color(253 / 255f, 208 / 255f, 2 / 255f));
+        public static readonly EasyColor Yellow = new(new Color32(253, 208, 2, byte.MaxValue));
 
-        public static readonly EasyColor Green = new(new Color(172 / 255f, 199 / 255f, 44 / 255f));
+        public static readonly EasyColor Green = new(new Color32(172, 199, 44, byte.MaxValue));
 
-        public static readonly EasyColor DarkGreen = new(new Color(2 / 255f, 168 / 255f, 112 / 255f));
+        public static readonly EasyColor DarkGreen = new(new Color32(2, 168, 112, byte.MaxValue));
     }
 }
