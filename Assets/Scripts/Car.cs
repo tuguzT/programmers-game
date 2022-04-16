@@ -108,8 +108,10 @@ public class Car : AbstractTile
                 throw new ArgumentOutOfRangeException(nameof(Direction), Direction, null);
         }
 
-        var tileBelow = FieldGenerator.Tiles[newPosition.x, newPosition.z];
-        newPosition.y = tileBelow.Position.y + 1;
+        var nextTile = FieldGenerator.Tiles[newPosition.x, newPosition.z];
+        if (nextTile.Position.y != Position.y - 1) return false;
+
+        newPosition.y = nextTile.Position.y + 1;
         Position = newPosition;
         audioSource.Play();
         return true;
@@ -125,5 +127,47 @@ public class Car : AbstractTile
     {
         Direction = Direction.TurnLeft();
         audioSource.Play();
+    }
+
+    public void TurnAround()
+    {
+        Direction = Direction.TurnAround();
+        audioSource.Play();
+    }
+
+    public bool Jump()
+    {
+        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+
+        Vector3Int newPosition;
+        switch (Direction)
+        {
+            case Direction.Forward:
+                if (Position.z == fieldWidth - 1) return false;
+                newPosition = Position + Vector3Int.forward;
+                break;
+            case Direction.Back:
+                if (Position.z == 0) return false;
+                newPosition = Position + Vector3Int.back;
+                break;
+            case Direction.Left:
+                if (Position.x == 0) return false;
+                newPosition = Position + Vector3Int.left;
+                break;
+            case Direction.Right:
+                if (Position.x == fieldWidth - 1) return false;
+                newPosition = Position + Vector3Int.right;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(Direction), Direction, null);
+        }
+
+        var nextTile = FieldGenerator.Tiles[newPosition.x, newPosition.z];
+        if (nextTile.Position.y - Position.y is not (0 or -1 or -2)) return false;
+
+        newPosition.y = nextTile.Position.y + 1;
+        Position = newPosition;
+        audioSource.Play();
+        return true;
     }
 }

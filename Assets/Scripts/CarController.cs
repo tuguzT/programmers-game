@@ -34,5 +34,13 @@ public class CarController : MonoBehaviour
         {
             Car.TurnRight();
         }
+        else if (Input.GetKeyDown("s"))
+        {
+            Car.TurnAround();
+        }
+        else if (Input.GetKeyDown("space"))
+        {
+            Car.Jump();
+        }
     }
 }
