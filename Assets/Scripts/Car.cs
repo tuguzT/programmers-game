@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Attributes;
 using Model;
@@ -7,7 +8,6 @@ using UnityEngine;
 
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-[RequireComponent(typeof(AudioSource))]
 public class Car : AbstractTile
 {
     [field: SerializeField]
@@ -39,6 +39,8 @@ public class Car : AbstractTile
     private Quaternion targetRotation;
 
     private AudioSource audioSource;
+    private Animator animator;
+    private static readonly int JumpUpTrigger = Animator.StringToHash("JumpUpTrigger");
 
     public override void FromData(ITile tile)
     {
@@ -54,8 +56,11 @@ public class Car : AbstractTile
 
     protected override void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         base.Awake();
+
+        audioSource = GetComponentInChildren<AudioSource>();
+        animator = GetComponentInChildren<Animator>();
+
         Outline.OutlineColor = Color.red;
     }
 
@@ -64,7 +69,7 @@ public class Car : AbstractTile
         if (!IsMoving) return;
 
         var cachedTransform = transform;
-        var time = 10 * Time.deltaTime;
+        var time = 8 * Time.deltaTime;
         cachedTransform.position = Vector3.Lerp(cachedTransform.position, targetPosition, time);
         cachedTransform.rotation = Quaternion.Lerp(cachedTransform.rotation, targetRotation, time);
     }
@@ -76,6 +81,7 @@ public class Car : AbstractTile
             const double threshold = 0.001;
             var cachedTransform = transform;
             return audioSource.isPlaying
+                   || animator.IsInTransition(0)
                    || Vector3.Distance(cachedTransform.position, targetPosition) > threshold
                    || Mathf.Abs(Quaternion.Angle(cachedTransform.rotation, targetRotation)) > threshold;
         }
@@ -163,11 +169,33 @@ public class Car : AbstractTile
         }
 
         var nextTile = FieldGenerator.Tiles[newPosition.x, newPosition.z];
-        if (nextTile.Position.y - Position.y is not (0 or -1 or -2)) return false;
+        var heightDiff = nextTile.Position.y - Position.y;
+        if (heightDiff is not (0 or -1 or -2)) return false;
 
         newPosition.y = nextTile.Position.y + 1;
-        Position = newPosition;
+        if (heightDiff == 0)
+        {
+            animator.SetTrigger(JumpUpTrigger);
+
+            void OnComplete()
+            {
+                base.Position = newPosition;
+                Position = position;
+            }
+
+            StartCoroutine(OnAnimationComplete("Jump Up", OnComplete));
+        }
+        else
+            Position = newPosition;
         audioSource.Play();
         return true;
+    }
+
+    private IEnumerator OnAnimationComplete(string animationName, Action onComplete)
+    {
+        yield return new WaitForSeconds(1);
+        while (animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+            yield return null;
+        onComplete?.Invoke();
     }
 }
