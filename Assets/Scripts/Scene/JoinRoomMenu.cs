@@ -21,7 +21,7 @@ namespace Scene
 
         public override void OnJoinedRoom()
         {
-            PhotonNetwork.LoadLevel("Game Scene");
+            PhotonNetwork.LoadLevel("Level Scene");
             MusicManager.Instance.PlayLevelMusic();
         }
     }

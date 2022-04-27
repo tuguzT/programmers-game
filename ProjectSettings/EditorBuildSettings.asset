@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Choose Game Mode Menu Scene.unity
     guid: 94d36ab67005cf849926032df2064f62
   - enabled: 1
-    path: Assets/Scenes/Connect To Server Screen.unity
+    path: Assets/Scenes/Connect To Server Scene.unity
     guid: caa434ab7c701ac4f8c54a8979627087
   - enabled: 1
     path: Assets/Scenes/Create Room Menu Scene.unity
@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Join Room Menu Scene.unity
     guid: 8d45b2fa4e099d641918c4fcd2ac063b
   - enabled: 1
-    path: Assets/Scenes/Game Scene.unity
+    path: Assets/Scenes/Level Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Create Hotseat Menu Scene.unity
+    guid: b1e3ca9674d764d49a7d5e36d3457f9f
   m_configObjects: {}

@@ -20,6 +20,16 @@ public class MusicManager : SingletonMonoBehaviour<MusicManager>
         PlayMenuMusic();
     }
 
+    public void PauseMusic()
+    {
+        audioSource.Pause();
+    }
+
+    public void UnPauseMusic()
+    {
+        audioSource.UnPause();
+    }
+
     public void PlayMenuMusic()
     {
         if (audioSource.clip == menuMusic && audioSource.isPlaying) return;

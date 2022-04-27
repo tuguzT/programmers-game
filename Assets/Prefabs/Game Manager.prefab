@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameMode>k__BackingField: 0
+  playerCount: 4
 --- !u!114 &-828738729873195606
 MonoBehaviour:
   m_ObjectHideFlags: 0
