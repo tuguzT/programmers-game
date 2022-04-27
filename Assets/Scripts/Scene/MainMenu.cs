@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Menu
+namespace Scene
 {
     public class MainMenu : MonoBehaviour
     {
+        private void Start()
+        {
+            MusicManager.Instance.PlayMenuMusic();
+        }
+
         public void Play()
         {
             SceneManager.LoadScene("Choose Game Mode Menu Scene");

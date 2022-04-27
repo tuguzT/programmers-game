@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Menu
+namespace Scene
 {
     public class ChooseGameModeMenu : MonoBehaviour
     {
@@ -18,12 +18,14 @@ namespace Menu
 
         public void CreateRoom()
         {
-            print("Create room");
+            GameManager.Instance.LoadSceneName = "Create Room Menu Scene";
+            SceneManager.LoadScene("Connect To Server Screen");
         }
 
-        public void ConnectToRoom()
+        public void JoinRoom()
         {
-            print("Connect to room");
+            GameManager.Instance.LoadSceneName = "Join Room Menu Scene";
+            SceneManager.LoadScene("Connect To Server Screen");
         }
     }
 }

@@ -6,4 +6,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     // ReSharper disable once UnusedAutoPropertyAccessor.Local
     [field: SerializeField] public GameMode GameMode { get; private set; }
+
+    public string LoadSceneName { get; set; }
 }
