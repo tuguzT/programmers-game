@@ -57,7 +57,8 @@ public abstract class AbstractTile : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!Input.GetMouseButton(0) && !GameManager.Instance.IsGamePaused) Outline.enabled = true;
+        if (Input.GetMouseButton(0) || GameManager.Instance.IsGamePaused) return;
+        Outline.enabled = true;
     }
 
     private void OnMouseExit()
