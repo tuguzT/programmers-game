@@ -15,11 +15,11 @@ public class FieldGenerator : MonoBehaviour
     {
         fieldDistribution = GetComponent<FieldDistribution>();
 
-        var gameMode = GameManager.Instance.GameMode;
+        var gameMode = GameManager.Instance.Difficulty;
         var fieldGenerator = gameMode.GetFieldGenerator();
         Tiles = new Tile[fieldGenerator.Width, fieldGenerator.Width];
 
-        var (generatedTiles, generatedCars) = fieldGenerator.Generate();
+        var generatedTiles = fieldGenerator.Generate();
         for (var i = 0; i < generatedTiles.GetLength(0); i++)
         for (var j = 0; j < generatedTiles.GetLength(1); j++)
         {
@@ -49,6 +49,7 @@ public class FieldGenerator : MonoBehaviour
             return car;
         }
 
-        Cars = generatedCars.Select(CarDataToComponent).ToArray();
+        var bases = generatedTiles.OfType<BaseData>();
+        Cars = CarGenerator.Generate(bases).Select(CarDataToComponent).ToArray();
     }
 }

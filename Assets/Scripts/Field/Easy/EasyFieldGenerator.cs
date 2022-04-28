@@ -9,15 +9,15 @@ namespace Field.Easy
 {
     internal sealed class EasyFieldGenerator : IFieldGenerator
     {
-        public uint Width => GameMode.Easy.FieldWidth();
+        public uint Width => Difficulty.Easy.FieldWidth();
 
-        public (TileData[,], CarData[]) Generate()
+        public TileData[,] Generate()
         {
             var chunks = Init();
             Generate2X2(chunks);
             Generate2X4(chunks);
-            var cars = GenerateBases(chunks);
-            return (chunks, cars);
+            GenerateBases(chunks);
+            return chunks;
         }
 
         private TileData[,] Init()
@@ -77,27 +77,18 @@ namespace Field.Easy
             }
         }
 
-        private CarData[] GenerateBases(TileData[,] chunks)
+        private void GenerateBases(TileData[,] chunks)
         {
-            const GameMode gameMode = GameMode.Easy;
+            const Difficulty difficulty = Difficulty.Easy;
 
             var colors = Enum.GetValues(typeof(TeamColor))
                 .Cast<TeamColor>()
                 .OrderBy(_ => Random.Range(0f, 1f))
                 .ToList();
-            chunks[0, 0] = new BaseData(chunks[0, 0].Position, colors[0], gameMode);
-            chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], gameMode);
-            chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], gameMode);
-            chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
-
-            var cars = new CarData[]
-            {
-                new((BaseData)chunks[0, 0]),
-                new((BaseData)chunks[0, Width - 1]),
-                new((BaseData)chunks[Width - 1, 0]),
-                new((BaseData)chunks[Width - 1, Width - 1])
-            };
-            return cars;
+            chunks[0, 0] = new BaseData(chunks[0, 0].Position, colors[0], difficulty);
+            chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], difficulty);
+            chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], difficulty);
+            chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], difficulty);
         }
     }
 }

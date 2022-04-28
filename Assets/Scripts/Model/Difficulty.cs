@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public enum GameMode
+    public enum Difficulty
     {
         Easy,
         Hard

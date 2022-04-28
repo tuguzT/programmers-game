@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Attributes;
-using Model;
 using UnityEngine;
 
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
@@ -15,7 +13,7 @@ public class CarController : MonoBehaviour
 
     private void Start()
     {
-        Car = fieldGenerator.Cars.Where((car, _) => car.TeamColor == TeamColor.Green).First();
+        Car = fieldGenerator.Cars[Random.Range(0, fieldGenerator.Cars.Length)];
     }
 
     private void Update()

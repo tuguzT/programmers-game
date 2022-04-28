@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MusicManager))]
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    [field: SerializeField] public GameMode GameMode { get; set; }
+    [field: SerializeField] public Difficulty Difficulty { get; set; }
 
     [field: SerializeField] public bool IsGamePaused { get; set; }
 

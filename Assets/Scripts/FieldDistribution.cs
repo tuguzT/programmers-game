@@ -67,19 +67,19 @@ public class FieldDistribution : MonoBehaviour
         return tiles.Last();
     }
 
-    private DifficultyDistribution GetDifficultyDistribution(GameMode gameMode)
+    private DifficultyDistribution GetDifficultyDistribution(Difficulty difficulty)
     {
-        return gameMode switch
+        return difficulty switch
         {
-            GameMode.Easy => easy,
-            GameMode.Hard => hard,
-            _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
+            Difficulty.Easy => easy,
+            Difficulty.Hard => hard,
+            _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
         };
     }
 
     private TeamDistribution GetTeamDistribution(TeamColor teamColor)
     {
-        var difficultyDistribution = GetDifficultyDistribution(GameManager.Instance.GameMode);
+        var difficultyDistribution = GetDifficultyDistribution(GameManager.Instance.Difficulty);
         return teamColor switch
         {
             TeamColor.Red => difficultyDistribution.Red,

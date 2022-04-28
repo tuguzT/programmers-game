@@ -6,6 +6,6 @@ namespace Field
     {
         uint Width { get; }
 
-        (TileData[,], CarData[]) Generate();
+        TileData[,] Generate();
     }
 }

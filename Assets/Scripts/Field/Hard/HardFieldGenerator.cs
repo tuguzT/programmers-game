@@ -11,15 +11,15 @@ namespace Field.Hard
 {
     internal sealed class HardFieldGenerator : IFieldGenerator
     {
-        public uint Width => GameMode.Hard.FieldWidth();
+        public uint Width => Difficulty.Hard.FieldWidth();
 
-        public (TileData[,], CarData[]) Generate()
+        public TileData[,] Generate()
         {
             var chunks = Init();
             var dataFirst = Generate3X6X2(chunks);
             var dataSecond = Generate3X6X1(chunks, dataFirst);
             var dataThird = Generate3X3(chunks);
-            var cars = GenerateBases(chunks);
+            GenerateBases(chunks);
             for (var i = 0; i < 2; i++)
             {
                 GenerateLift(chunks, dataFirst);
@@ -27,7 +27,7 @@ namespace Field.Hard
                 GenerateLift(chunks, dataThird);
             }
 
-            return (chunks, cars);
+            return chunks;
         }
 
         private TileData[,] Init()
@@ -171,27 +171,18 @@ namespace Field.Hard
             return (x, y, 3, 3);
         }
 
-        private CarData[] GenerateBases(TileData[,] chunks)
+        private void GenerateBases(TileData[,] chunks)
         {
-            const GameMode gameMode = GameMode.Hard;
+            const Difficulty difficulty = Difficulty.Hard;
 
             var colors = Enum.GetValues(typeof(TeamColor))
                 .Cast<TeamColor>()
                 .OrderBy(_ => Random.Range(0f, 1f))
                 .ToImmutableList();
-            chunks[0, 0] = new BaseData(chunks[0, 0].Position, colors[0], gameMode);
-            chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], gameMode);
-            chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], gameMode);
-            chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], gameMode);
-
-            var cars = new CarData[]
-            {
-                new((BaseData)chunks[0, 0]),
-                new((BaseData)chunks[0, Width - 1]),
-                new((BaseData)chunks[Width - 1, 0]),
-                new((BaseData)chunks[Width - 1, Width - 1])
-            };
-            return cars;
+            chunks[0, 0] = new BaseData(chunks[0, 0].Position, colors[0], difficulty);
+            chunks[0, Width - 1] = new BaseData(chunks[0, Width - 1].Position, colors[1], difficulty);
+            chunks[Width - 1, 0] = new BaseData(chunks[Width - 1, 0].Position, colors[2], difficulty);
+            chunks[Width - 1, Width - 1] = new BaseData(chunks[Width - 1, Width - 1].Position, colors[3], difficulty);
         }
 
         [SuppressMessage("ReSharper", "VariableHidesOuterVariable")]

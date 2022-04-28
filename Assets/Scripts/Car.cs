@@ -89,7 +89,7 @@ public class Car : AbstractTile
 
     public bool MoveForward()
     {
-        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+        var fieldWidth = GameManager.Instance.Difficulty.FieldWidth();
 
         Vector3Int newPosition;
         switch (Direction)
@@ -143,7 +143,7 @@ public class Car : AbstractTile
 
     public bool Jump()
     {
-        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+        var fieldWidth = GameManager.Instance.Difficulty.FieldWidth();
 
         Vector3Int newPosition;
         switch (Direction)

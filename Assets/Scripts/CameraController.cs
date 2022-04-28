@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
         var myTransform = transform;
         center = myTransform.position;
 
-        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+        var fieldWidth = GameManager.Instance.Difficulty.FieldWidth();
         minDistance = fieldWidth * ITile.Width;
         maxDistance = minDistance * 1.5f;
         zoomDistance = distance = (minDistance + maxDistance) / 2;

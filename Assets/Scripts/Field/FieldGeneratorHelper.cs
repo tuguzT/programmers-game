@@ -7,13 +7,13 @@ namespace Field
 {
     public static class FieldGeneratorHelper
     {
-        public static IFieldGenerator GetFieldGenerator(this GameMode gameMode)
+        public static IFieldGenerator GetFieldGenerator(this Difficulty difficulty)
         {
-            return gameMode switch
+            return difficulty switch
             {
-                GameMode.Easy => new EasyFieldGenerator(),
-                GameMode.Hard => new HardFieldGenerator(),
-                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
+                Difficulty.Easy => new EasyFieldGenerator(),
+                Difficulty.Hard => new HardFieldGenerator(),
+                _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
             };
         }
     }

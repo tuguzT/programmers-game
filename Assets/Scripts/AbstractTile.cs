@@ -57,7 +57,7 @@ public abstract class AbstractTile : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!Input.GetMouseButton(0)) Outline.enabled = true;
+        if (!Input.GetMouseButton(0) && !GameManager.Instance.IsGamePaused) Outline.enabled = true;
     }
 
     private void OnMouseExit()
@@ -67,7 +67,7 @@ public abstract class AbstractTile : MonoBehaviour
 
     protected static Vector3 GetWorldPosition(Vector3Int position)
     {
-        var fieldWidth = GameManager.Instance.GameMode.FieldWidth();
+        var fieldWidth = GameManager.Instance.Difficulty.FieldWidth();
         var offset = new Vector3
         {
             x = (1f - fieldWidth) * ITile.Width / 2f,
