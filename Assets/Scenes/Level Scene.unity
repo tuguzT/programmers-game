@@ -708,18 +708,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 804009715}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &837765270 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 60704060951062391, guid: 25a984c2e158c8d4dbc80f6b978cc5aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 60704061614397957}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce521870a7940bc448b4536324128bee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +940,7 @@ GameObject:
   - component: {fileID: 1612817264}
   - component: {fileID: 1612817266}
   m_Layer: 0
-  m_Name: Controller
+  m_Name: Level Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -999,11 +987,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1612817263}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c2bf0e02cb4ef8a912b4bbd325a279, type: 3}
+  m_Script: {fileID: 11500000, guid: 28436b2aadd3433d9f064f70a3a29223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldGenerator: {fileID: 837765270}
-  <Car>k__BackingField: {fileID: 0}
+  fieldGenerator: {fileID: 60704061614397958}
 --- !u!1001 &1635588475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1398,3 +1385,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25a984c2e158c8d4dbc80f6b978cc5aa, type: 3}
+--- !u!114 &60704061614397958 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 60704060951062391, guid: 25a984c2e158c8d4dbc80f6b978cc5aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 60704061614397957}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce521870a7940bc448b4536324128bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

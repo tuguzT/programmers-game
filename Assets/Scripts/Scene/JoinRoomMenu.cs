@@ -24,5 +24,10 @@ namespace Scene
             PhotonNetwork.LoadLevel("Level Scene");
             MusicManager.Instance.PlayLevelMusic();
         }
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+            Debug.LogWarning($"Return code: {returnCode}. Message: \"{message}\"");
+        }
     }
 }

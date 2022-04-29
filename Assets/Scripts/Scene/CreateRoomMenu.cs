@@ -35,6 +35,11 @@ namespace Scene
             PhotonNetwork.CreateRoom(roomNameInputField.text, roomOptions);
         }
 
+        public override void OnCreateRoomFailed(short returnCode, string message)
+        {
+            Debug.LogWarning($"Return code: {returnCode}. Message: \"{message}\"");
+        }
+
         public void Back()
         {
             SceneManager.LoadScene("Choose Game Mode Menu Scene");

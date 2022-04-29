@@ -42,6 +42,11 @@ namespace Scene
             };
 
             PhotonNetwork.OfflineMode = true;
+            PhotonNetwork.CreateRoom(string.Empty);
+        }
+
+        public override void OnJoinedRoom()
+        {
             PhotonNetwork.LoadLevel("Level Scene");
             MusicManager.Instance.PlayLevelMusic();
         }

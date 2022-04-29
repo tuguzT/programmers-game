@@ -44,10 +44,11 @@ namespace Scene
 
         public override void OnLeftRoom()
         {
-            SceneManager.LoadScene("Main Menu Scene");
             Time.timeScale = 1;
             GameManager.Instance.IsGamePaused = false;
             MusicManager.Instance.PlayMenuMusic();
+
+            SceneManager.LoadScene("Main Menu Scene");
         }
     }
 }

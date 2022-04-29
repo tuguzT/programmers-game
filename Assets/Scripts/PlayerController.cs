@@ -1,44 +1,45 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Attributes;
+using Photon.Pun;
 using UnityEngine;
 
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-public class CarController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public FieldGenerator fieldGenerator;
+    [field: SerializeField] [field: ReadOnly]
+    private Car car;
 
-    [field: SerializeField]
-    [field: ReadOnly]
-    public Car Car { get; private set; }
+    private PhotonView _photonView;
 
-    private void Start()
+    private void Awake()
     {
-        Car = fieldGenerator.Cars[Random.Range(0, fieldGenerator.Cars.Length)];
+        car = GetComponent<Car>();
+        _photonView = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-        if (Car.IsMoving) return;
+        if (car.IsMoving || !_photonView.IsMine) return;
 
         if (Input.GetKeyDown("w"))
         {
-            Car.MoveForward();
+            car.MoveForward();
         }
         else if (Input.GetKeyDown("a"))
         {
-            Car.TurnLeft();
+            car.TurnLeft();
         }
         else if (Input.GetKeyDown("d"))
         {
-            Car.TurnRight();
+            car.TurnRight();
         }
         else if (Input.GetKeyDown("s"))
         {
-            Car.TurnAround();
+            car.TurnAround();
         }
         else if (Input.GetKeyDown("space"))
         {
-            Car.Jump();
+            car.Jump();
         }
     }
 }
